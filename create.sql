@@ -91,7 +91,7 @@ create table personal_part(
 	name varchar(50) not null,
 	surname varchar(50) not null,
 	patronymic varchar(50) not null,
-    gender_id tinyint not null,
+    gender varchar(7) not null,
     date_of_birth date not null,
     address_id bigint not null,
     work_place varchar(150) not null,
@@ -106,7 +106,6 @@ create table personal_part(
     user_id bigint not null,
 
 	primary key (id),
-    foreign key (gender_id) references gender(id),
     foreign key (address_id) references address(id),
     foreign key (dispensary_observation_group_id) references dispensary_observation_group (id),
     foreign key (observing_persone_id) references user(id),
