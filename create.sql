@@ -96,7 +96,7 @@ create table personal_part(
     address_id bigint not null,
     work_place varchar(150) not null,
     position varchar(30),
-    dispensary_observation_group_id int not null,
+    dispensary_observation_group varchar(7) not null,
     disease varchar(30),
     information_about_burdened_allergic_anamnesis varchar(200),
     information_about_transferred_viral_hepatitis varchar(200),
@@ -107,7 +107,6 @@ create table personal_part(
 
 	primary key (id),
     foreign key (address_id) references address(id),
-    foreign key (dispensary_observation_group_id) references dispensary_observation_group (id),
     foreign key (observing_persone_id) references user(id),
     foreign key (user_id) references user(id)
 );
