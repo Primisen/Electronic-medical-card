@@ -73,10 +73,6 @@ create table dispensary_observation_group (
 	primary key (id)
 );
 
-insert into dispensary_observation_group (group_name) value ("Д (I)");
-insert into dispensary_observation_group (group_name) value ("Д (II)");
-insert into dispensary_observation_group (group_name) value ("Д (III)");
-
 create table phone (
 	id bigint auto_increment not null,
     phone_number varchar(17) not null,
