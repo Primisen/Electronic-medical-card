@@ -16,15 +16,6 @@ create table health_worker_role (
 	primary key (id)
 );
 
-create table gender(
-	id tinyint auto_increment not null,
-	gender_name varchar(20) not null,
-	primary key (id)
-);
-
-insert into gender (gender_name) value("мужчина");
-insert into gender (gender_name) value("женщина");
-
 create table user(
 	id bigint auto_increment not null,
 	name varchar(50) not null,
@@ -98,13 +89,11 @@ create table personal_part(
     information_about_transferred_viral_hepatitis varchar(200),
     elderly_and_senile_people_living_alone bit,
     privileged_group varchar(255),
-    observing_persone_id bigint,
-    user_id bigint not null,
+    observing_person_id bigint,
 
 	primary key (id),
     foreign key (address_id) references address(id),
-    foreign key (observing_persone_id) references user(id),
-    foreign key (user_id) references user(id)
+    foreign key (observing_person_id) references user(id)
 );
 
 create table diagnosis_part(
@@ -113,11 +102,9 @@ create table diagnosis_part(
 	diagnosis_name varchar(70) not null,
 	newly_diagnosed bit,
 	health_worker_id bigint not null,
-    user_id bigint not null,
 
 	primary key (id),
-	foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+	foreign key (health_worker_id) references health_worker (id)
 );
 
 create table gynecological_examination_part(
@@ -126,11 +113,9 @@ create table gynecological_examination_part(
     health_worker_id bigint not null,
     diagnosis varchar(90),
     cytology varchar(90),
-    user_id bigint not null,
 
 	primary key (id),
-    foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+    foreign key (health_worker_id) references health_worker (id)
 );
 
 create table accounting_temporary_disability_part(
@@ -140,11 +125,9 @@ create table accounting_temporary_disability_part(
     diagnosis varchar(200) not null,
     end_date date not null,
     day_number int not null,
-    user_id bigint not null,
 
 	primary key (id),
-    foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+    foreign key (health_worker_id) references health_worker (id)
 );
 
 create table xray_examination_part(
@@ -153,11 +136,9 @@ create table xray_examination_part(
 	health_worker_id bigint not null,
     type_of_research varchar(200) not null,
     dose varchar(200) not null,
-    user_id bigint not null,
 
 	primary key (id),
-	foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+	foreign key (health_worker_id) references health_worker (id)
 );
 
 create table risk_factors_group (
@@ -198,11 +179,9 @@ create table anamnesis_part(
     other_information varchar(255),
     date_of_registration_on_d varchar(255),
     addition_to_anamnesis varchar(255),
-    user_id bigint not null,
 
 	primary key (id),
-	foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+	foreign key (health_worker_id) references health_worker (id)
 );
 
 create table recording_medical_examination_part(
@@ -210,7 +189,6 @@ create table recording_medical_examination_part(
 	tratment_date date not null,
 	receiving_doctor_id bigint,
 	treatment_doctor_id bigint,
-	user_id bigint not null,
 	complaints varchar(255),
 	objectively varchar(255),
 	diagnosis varchar(255),
@@ -222,7 +200,6 @@ create table recording_medical_examination_part(
 	ad varchar(50),
 
 	primary key (id),
-	foreign key (user_id) references user(id),
 	foreign key (receiving_doctor_id) references health_worker(id),
 	foreign key (treatment_doctor_id) references health_worker(id)
 );
@@ -269,18 +246,15 @@ create table preventive_examination_part(
 	breast varchar(255),
 	uterus varchar(255),
 	other varchar(255),
-    user_id bigint not null,
 
 	primary key (id),
-    foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+    foreign key (health_worker_id) references health_worker (id)
 );
 
-create table vaccination (
+create table vaccination_part (
 	id bigint auto_increment not null,
     tratment_date date not null,
     health_worker_id bigint not null,
-    user_id bigint not null,
     vaccination_name varchar(30),
     dose varchar(30),
     name_of_drug varchar(30),
@@ -289,6 +263,39 @@ create table vaccination (
     general_reaction varchar(30),
 	
 	primary key (id),
-    foreign key (health_worker_id) references health_worker (id),
-    foreign key (user_id) references user(id)
+    foreign key (health_worker_id) references health_worker (id)
+);
+
+create table medical_card(
+	id bigint auto_increment not null,
+    personal_part_id bigint not null,
+    diagnosis_part_id bigint,
+    anamnesis_part_id bigint,
+    accounting_temporary_disability_part_id bigint,
+    gynecological_examination_part_id bigint,
+    preventive_examination_part_id bigint,
+    recording_medical_examination_part_id bigint,
+    vaccination_part_id bigint,
+    xray_examination_part_id bigint,
+    
+    primary key(id),
+    foreign key (personal_part_id) references personal_part(id),
+    foreign key (diagnosis_part_id) references diagnosis_part(id),
+    foreign key (anamnesis_part_id) references anamnesis_part(id),
+    foreign key (accounting_temporary_disability_part_id) references accounting_temporary_disability_part(id),
+    foreign key (gynecological_examination_part_id) references gynecological_examination_part(id),
+    foreign key (preventive_examination_part_id) references preventive_examination_part(id),
+    foreign key (recording_medical_examination_part_id) references recording_medical_examination_part(id),
+    foreign key (vaccination_part_id) references vaccination_part(id),
+    foreign key (xray_examination_part_id) references xray_examination_part(id)
+);
+
+create table patient(
+	id bigint auto_increment not null,
+    user_id bigint not null,
+    medical_card_id bigint,
+    
+    primary key(id),
+    foreign key(user_id) references user(id),
+    foreign key(medical_card_id) references medical_card(id)
 );
