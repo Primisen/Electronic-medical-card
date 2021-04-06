@@ -80,6 +80,17 @@ create table medical_card(
     primary key(id)
 );
 
+
+create table patient(
+	id bigint auto_increment not null,
+    user_id bigint not null,
+    medical_card_id bigint,
+    
+    primary key(id),
+    foreign key(user_id) references user(id),
+    foreign key(medical_card_id) references medical_card(id)
+);
+
 create table personal_part(
 	id bigint auto_increment not null,
 	name varchar(50) not null,
@@ -159,29 +170,13 @@ create table xray_examination_part(
     foreign key (medical_card_id) references medical_card(id)
 );
 
-create table risk_factors_group (
-	id int auto_increment not null,
-    name_group varchar(255),
-    
-    primary key(id)
-);
-
-insert into risk_factors_group (name_group) value ("курение");
-insert into risk_factors_group (name_group) value ("злоупотребление алкоголем");
-insert into risk_factors_group (name_group) value ("гиподинамия");
-insert into risk_factors_group (name_group) value ("психоэмоциональные нагрузки");
-insert into risk_factors_group (name_group) value ("гиперхолестеринемия");
-insert into risk_factors_group (name_group) value ("сахарный диабет");
-insert into risk_factors_group (name_group) value ("излишняя масса тела");
-
 create table people_at_risk (
 	id int auto_increment not null,
-    user_id bigint not null,
-    risk_factors_group_id int not null,
+    patient_id bigint not null,
+    risk_factors_group varchar(100) not null,
     
     primary key(id),
-    foreign key (user_id) references user(id),
-    foreign key (risk_factors_group_id) references risk_factors_group(id)
+    foreign key (patient_id) references patient(id)
 );
 
 create table anamnesis_part(
@@ -290,14 +285,4 @@ create table vaccination_part (
 	primary key (id),
     foreign key (health_worker_id) references health_worker (id),
     foreign key (medical_card_id) references medical_card(id)
-);
-
-create table patient(
-	id bigint auto_increment not null,
-    user_id bigint not null,
-    medical_card_id bigint,
-    
-    primary key(id),
-    foreign key(user_id) references user(id),
-    foreign key(medical_card_id) references medical_card(id)
 );
