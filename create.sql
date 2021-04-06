@@ -47,7 +47,8 @@ create table health_worker(
 create table address(
 	id bigint auto_increment not null,
     street varchar(30),
-    home_number int not null,
+    home_number varchar(30) not null,
+    case_number int,
     flat_number int,
     locality varchar(30) not null,
     district varchar(30) not null,
