@@ -3,12 +3,12 @@ package com.bntu.nadia.electronic_medical_card.model.medical_card;
 import com.bntu.nadia.electronic_medical_card.model.user.Patient;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "medical_card")
-public class MedicalCard {//пропписать методы add +  переопределить equals,hashcode
+public class MedicalCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,31 +19,31 @@ public class MedicalCard {//пропписать методы add +  перео�
     private Patient patient;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage;
+    private List<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<AnamnesisPage> anamnesisPage;
+    private List<AnamnesisPage> anamnesisPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<DiagnosisPage> diagnosisPage;
+    private List<DiagnosisPage> diagnosisPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<GynecologicalExaminationPage> gynecologicalExaminationPage;
+    private List<GynecologicalExaminationPage> gynecologicalExaminationPage;
 
     @OneToOne(mappedBy = "medical_card")
     private PersonalPage personalPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<PreventiveExaminationPage> preventiveExaminationPage;
+    private List<PreventiveExaminationPage> preventiveExaminationPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<RecordingMedicalExaminationPage> recordingMedicalExaminationPage;
+    private List<RecordingMedicalExaminationPage> recordingMedicalExaminationPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<VaccinationPage> vaccinationPage;
+    private List<VaccinationPage> vaccinationPage;
 
     @OneToMany(mappedBy = "medical_card")
-    private Set<XRayExaminationPage> xRayExaminationPage;
+    private List<XRayExaminationPage> xRayExaminationPage;
 
     public MedicalCard() {
     }
@@ -64,45 +64,72 @@ public class MedicalCard {//пропписать методы add +  перео�
         this.patient = patient;
     }
 
-    public Set<AccountingTemporaryDisabilityPage> getAccountingTemporaryDisabilityPage() {
+    public List<AccountingTemporaryDisabilityPage> getAccountingTemporaryDisabilityPage() {
         return accountingTemporaryDisabilityPage;
+    }
+
+    public void setAccountingTemporaryDisabilityPage(List<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage) {
+        this.accountingTemporaryDisabilityPage = accountingTemporaryDisabilityPage;
     }
 
     public void addAccountingTemporaryDisabilityPage(AccountingTemporaryDisabilityPage accountingTemporaryDisabilityPage) {
 
         if (this.accountingTemporaryDisabilityPage == null) {
-            this.accountingTemporaryDisabilityPage = new HashSet<>();
+            this.accountingTemporaryDisabilityPage = new ArrayList<>();
         }
 
         this.accountingTemporaryDisabilityPage.add(accountingTemporaryDisabilityPage);
     }
 
-    public void setAccountingTemporaryDisabilityPage(Set<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage) {
-        this.accountingTemporaryDisabilityPage = accountingTemporaryDisabilityPage;
-    }
-
-    public Set<AnamnesisPage> getAnamnesisPage() {
+    public List<AnamnesisPage> getAnamnesisPage() {
         return anamnesisPage;
     }
 
-    public void setAnamnesisPage(Set<AnamnesisPage> anamnesisPage) {
+    public void setAnamnesisPage(List<AnamnesisPage> anamnesisPage) {
         this.anamnesisPage = anamnesisPage;
     }
 
-    public Set<DiagnosisPage> getDiagnosisPage() {
+    public void addAnamnesisPage(AnamnesisPage anamnesisPage) {
+
+        if (this.anamnesisPage == null) {
+            this.anamnesisPage = new ArrayList<>();
+        }
+
+        this.anamnesisPage.add(anamnesisPage);
+    }
+
+    public List<DiagnosisPage> getDiagnosisPage() {
         return diagnosisPage;
     }
 
-    public void setDiagnosisPage(Set<DiagnosisPage> diagnosisPage) {
+    public void setDiagnosisPage(List<DiagnosisPage> diagnosisPage) {
         this.diagnosisPage = diagnosisPage;
     }
 
-    public Set<GynecologicalExaminationPage> getGynecologicalExaminationPage() {
+    public void addDiagnosisPage(DiagnosisPage diagnosisPage) {
+
+        if (this.diagnosisPage == null) {
+            this.diagnosisPage = new ArrayList<>();
+        }
+
+        this.diagnosisPage.add(diagnosisPage);
+    }
+
+    public List<GynecologicalExaminationPage> getGynecologicalExaminationPage() {
         return gynecologicalExaminationPage;
     }
 
-    public void setGynecologicalExaminationPage(Set<GynecologicalExaminationPage> gynecologicalExaminationPage) {
+    public void setGynecologicalExaminationPage(List<GynecologicalExaminationPage> gynecologicalExaminationPage) {
         this.gynecologicalExaminationPage = gynecologicalExaminationPage;
+    }
+
+    public void addGynecologicalExaminationPage(GynecologicalExaminationPage gynecologicalExaminationPage) {
+
+        if (this.gynecologicalExaminationPage == null) {
+            this.gynecologicalExaminationPage = new ArrayList<>();
+        }
+
+        this.gynecologicalExaminationPage.add(gynecologicalExaminationPage);
     }
 
     public PersonalPage getPersonalPage() {
@@ -113,35 +140,71 @@ public class MedicalCard {//пропписать методы add +  перео�
         this.personalPage = personalPage;
     }
 
-    public Set<PreventiveExaminationPage> getPreventiveExaminationPage() {
+    public List<PreventiveExaminationPage> getPreventiveExaminationPage() {
         return preventiveExaminationPage;
     }
 
-    public void setPreventiveExaminationPage(Set<PreventiveExaminationPage> preventiveExaminationPage) {
+    public void setPreventiveExaminationPage(List<PreventiveExaminationPage> preventiveExaminationPage) {
         this.preventiveExaminationPage = preventiveExaminationPage;
     }
 
-    public Set<RecordingMedicalExaminationPage> getRecordingMedicalExaminationPage() {
+    public void addPreventiveExaminationPage(PreventiveExaminationPage preventiveExaminationPage) {
+
+        if (this.preventiveExaminationPage == null) {
+            this.preventiveExaminationPage = new ArrayList<>();
+        }
+
+        this.preventiveExaminationPage.add(preventiveExaminationPage);
+    }
+
+    public List<RecordingMedicalExaminationPage> getRecordingMedicalExaminationPage() {
         return recordingMedicalExaminationPage;
     }
 
-    public void setRecordingMedicalExaminationPage(Set<RecordingMedicalExaminationPage> recordingMedicalExaminationPage) {
+    public void setRecordingMedicalExaminationPage(List<RecordingMedicalExaminationPage> recordingMedicalExaminationPage) {
         this.recordingMedicalExaminationPage = recordingMedicalExaminationPage;
     }
 
-    public Set<VaccinationPage> getVaccinationPage() {
+    public void addRecordingMedicalExaminationPage(RecordingMedicalExaminationPage recordingMedicalExaminationPage) {
+
+        if (this.recordingMedicalExaminationPage == null) {
+            this.recordingMedicalExaminationPage = new ArrayList<>();
+        }
+
+        this.recordingMedicalExaminationPage.add(recordingMedicalExaminationPage);
+    }
+
+    public List<VaccinationPage> getVaccinationPage() {
         return vaccinationPage;
     }
 
-    public void setVaccinationPage(Set<VaccinationPage> vaccinationPage) {
+    public void setVaccinationPage(List<VaccinationPage> vaccinationPage) {
         this.vaccinationPage = vaccinationPage;
     }
 
-    public Set<XRayExaminationPage> getXRayExaminationPage() {
+    public void addVaccinationPage(VaccinationPage vaccinationPage) {
+
+        if (this.vaccinationPage == null) {
+            this.vaccinationPage = new ArrayList<>();
+        }
+
+        this.vaccinationPage.add(vaccinationPage);
+    }
+
+    public List<XRayExaminationPage> getXRayExaminationPage() {
         return xRayExaminationPage;
     }
 
-    public void setXRayExaminationPage(Set<XRayExaminationPage> xRayExaminationPage) {
+    public void setXRayExaminationPage(List<XRayExaminationPage> xRayExaminationPage) {
         this.xRayExaminationPage = xRayExaminationPage;
+    }
+
+    public void addXRayExaminationPage(XRayExaminationPage xRayExaminationPage) {
+
+        if (this.xRayExaminationPage == null) {
+            this.xRayExaminationPage = new ArrayList<>();
+        }
+
+        this.xRayExaminationPage.add(xRayExaminationPage);
     }
 }

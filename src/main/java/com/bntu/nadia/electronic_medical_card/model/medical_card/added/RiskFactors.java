@@ -1,12 +1,12 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card.added;
 
-import com.bntu.nadia.electronic_medical_card.model.user.Patient;
+import com.bntu.nadia.electronic_medical_card.model.medical_card.AnamnesisPage;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "people_at_risk")
-public class PeopleAtRisk {
+@Table(name = "risk_factors")
+public class RiskFactors {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,13 +14,13 @@ public class PeopleAtRisk {
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private Patient patient;//шо с этим делац я не понимаю
+    @JoinColumn(name = "anamnesis_part_id", referencedColumnName = "id")
+    private AnamnesisPage anamnesisPage;
 
     @Column(name = "risk_factors_group")
     private RiskFactorsGroup riskFactorsGroup;
 
-    public PeopleAtRisk () {}
+    public RiskFactors() {}
 
     public int getId() {
         return id;
@@ -30,12 +30,12 @@ public class PeopleAtRisk {
         this.id = id;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public AnamnesisPage getAnamnesisPage() {
+        return anamnesisPage;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setAnamnesisPage(AnamnesisPage anamnesisPage) {
+        this.anamnesisPage = anamnesisPage;
     }
 
     public RiskFactorsGroup getRiskFactorsGroup() {
@@ -45,4 +45,6 @@ public class PeopleAtRisk {
     public void setRiskFactorsGroup(RiskFactorsGroup riskFactorsGroup) {
         this.riskFactorsGroup = riskFactorsGroup;
     }
+
+
 }
