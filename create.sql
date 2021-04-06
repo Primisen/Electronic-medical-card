@@ -170,15 +170,6 @@ create table xray_examination_part(
     foreign key (medical_card_id) references medical_card(id)
 );
 
-create table people_at_risk (
-	id int auto_increment not null,
-    patient_id bigint not null,
-    risk_factors_group varchar(100) not null,
-    
-    primary key(id),
-    foreign key (patient_id) references patient(id)
-);
-
 create table anamnesis_part(
 	id bigint auto_increment not null,
 	record_date date not null,
@@ -197,6 +188,15 @@ create table anamnesis_part(
 	primary key (id),
 	foreign key (health_worker_id) references health_worker (id),
     foreign key (medical_card_id) references medical_card(id)
+);
+
+create table risk_factors (
+	id int auto_increment not null,
+    anamnesis_part_id bigint not null,
+    risk_factors_group varchar(100) not null,
+    
+    primary key(id),
+    foreign key (anamnesis_part_id) references anamnesis_part(id)
 );
 
 create table recording_medical_examination_part(
@@ -239,14 +239,13 @@ insert into preventive_examination_question (question) value ("Имеются л
 insert into preventive_examination_question (question) value ("Другие жалобы.");
 
 create table questionnaire(
-	id int auto_increment not null,
+	id bigint auto_increment not null,
     question_id int not null,
-    answer bit not null, 
-    user_id bigint not null,
+    answer bit not null,
+    other varchar(100),
 
     primary key(id),
-    foreign key (question_id) references preventive_examination_question(id),
-    foreign key (user_id) references user(id)
+    foreign key (question_id) references preventive_examination_question(id)
 );
 
 create table preventive_examination_part(
@@ -263,10 +262,12 @@ create table preventive_examination_part(
 	breast varchar(255),
 	uterus varchar(255),
 	other varchar(255),
+    questionnaire_id bigint,
     medical_card_id bigint not null,
 
 	primary key (id),
     foreign key (health_worker_id) references health_worker (id),
+    foreign key (questionnaire_id) references questionnaire (id),
     foreign key (medical_card_id) references medical_card(id)
 );
 
