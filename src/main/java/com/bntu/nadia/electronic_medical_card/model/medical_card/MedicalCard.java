@@ -1,6 +1,6 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.user.Patient;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,35 +15,37 @@ public class MedicalCard {
     @Column(name = "id")
     private long id;
 
-    @OneToOne(mappedBy = "medicalCard")
-    private Patient patient;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User patient;
 
-    @OneToMany(mappedBy = "medical_card")
-    private List<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage;
+    @OneToMany(mappedBy = "medicalCard")
+    private List<TemporaryDisabilityPage> temporaryDisabilityPage;
 
-    @OneToMany(mappedBy = "medical_card")
+    @OneToMany(mappedBy = "medicalCard")
     private List<AnamnesisPage> anamnesisPage;
 
-    @OneToMany(mappedBy = "medical_card")
+    @OneToMany(mappedBy = "medicalCard")
     private List<DiagnosisPage> diagnosisPage;
 
-    @OneToMany(mappedBy = "medical_card")
-    private List<GynecologicalExaminationPage> gynecologicalExaminationPage;
+    @OneToMany(mappedBy = "medicalCard")
+    private List<GynecologicalPage> gynecologicalPage;
 
-    @OneToOne(mappedBy = "medical_card")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "personal_part_id", referencedColumnName = "id")
     private PersonalPage personalPage;
 
-    @OneToMany(mappedBy = "medical_card")
+    @OneToMany(mappedBy = "medicalCard")
     private List<PreventiveExaminationPage> preventiveExaminationPage;
 
-    @OneToMany(mappedBy = "medical_card")
-    private List<RecordingMedicalExaminationPage> recordingMedicalExaminationPage;
+    @OneToMany(mappedBy = "medicalCard")
+    private List<MedicalExaminationPage> medicalExaminationPage;
 
-    @OneToMany(mappedBy = "medical_card")
+    @OneToMany(mappedBy = "medicalCard")
     private List<VaccinationPage> vaccinationPage;
 
-    @OneToMany(mappedBy = "medical_card")
-    private List<XRayExaminationPage> xRayExaminationPage;
+    @OneToMany(mappedBy = "medicalCard")
+    private List<XRayPage> xRayPage;
 
     public MedicalCard() {
     }
@@ -56,29 +58,29 @@ public class MedicalCard {
         this.id = id;
     }
 
-    public Patient getPatient() {
+    public User getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(User patient) {
         this.patient = patient;
     }
 
-    public List<AccountingTemporaryDisabilityPage> getAccountingTemporaryDisabilityPage() {
-        return accountingTemporaryDisabilityPage;
+    public List<TemporaryDisabilityPage> getAccountingTemporaryDisabilityPage() {
+        return temporaryDisabilityPage;
     }
 
-    public void setAccountingTemporaryDisabilityPage(List<AccountingTemporaryDisabilityPage> accountingTemporaryDisabilityPage) {
-        this.accountingTemporaryDisabilityPage = accountingTemporaryDisabilityPage;
+    public void setAccountingTemporaryDisabilityPage(List<TemporaryDisabilityPage> temporaryDisabilityPage) {
+        this.temporaryDisabilityPage = temporaryDisabilityPage;
     }
 
-    public void addAccountingTemporaryDisabilityPage(AccountingTemporaryDisabilityPage accountingTemporaryDisabilityPage) {
+    public void addAccountingTemporaryDisabilityPage(TemporaryDisabilityPage temporaryDisabilityPage) {
 
-        if (this.accountingTemporaryDisabilityPage == null) {
-            this.accountingTemporaryDisabilityPage = new ArrayList<>();
+        if (this.temporaryDisabilityPage == null) {
+            this.temporaryDisabilityPage = new ArrayList<>();
         }
 
-        this.accountingTemporaryDisabilityPage.add(accountingTemporaryDisabilityPage);
+        this.temporaryDisabilityPage.add(temporaryDisabilityPage);
     }
 
     public List<AnamnesisPage> getAnamnesisPage() {
@@ -115,21 +117,21 @@ public class MedicalCard {
         this.diagnosisPage.add(diagnosisPage);
     }
 
-    public List<GynecologicalExaminationPage> getGynecologicalExaminationPage() {
-        return gynecologicalExaminationPage;
+    public List<GynecologicalPage> getGynecologicalExaminationPage() {
+        return gynecologicalPage;
     }
 
-    public void setGynecologicalExaminationPage(List<GynecologicalExaminationPage> gynecologicalExaminationPage) {
-        this.gynecologicalExaminationPage = gynecologicalExaminationPage;
+    public void setGynecologicalExaminationPage(List<GynecologicalPage> gynecologicalPage) {
+        this.gynecologicalPage = gynecologicalPage;
     }
 
-    public void addGynecologicalExaminationPage(GynecologicalExaminationPage gynecologicalExaminationPage) {
+    public void addGynecologicalExaminationPage(GynecologicalPage gynecologicalPage) {
 
-        if (this.gynecologicalExaminationPage == null) {
-            this.gynecologicalExaminationPage = new ArrayList<>();
+        if (this.gynecologicalPage == null) {
+            this.gynecologicalPage = new ArrayList<>();
         }
 
-        this.gynecologicalExaminationPage.add(gynecologicalExaminationPage);
+        this.gynecologicalPage.add(gynecologicalPage);
     }
 
     public PersonalPage getPersonalPage() {
@@ -157,21 +159,21 @@ public class MedicalCard {
         this.preventiveExaminationPage.add(preventiveExaminationPage);
     }
 
-    public List<RecordingMedicalExaminationPage> getRecordingMedicalExaminationPage() {
-        return recordingMedicalExaminationPage;
+    public List<MedicalExaminationPage> getRecordingMedicalExaminationPage() {
+        return medicalExaminationPage;
     }
 
-    public void setRecordingMedicalExaminationPage(List<RecordingMedicalExaminationPage> recordingMedicalExaminationPage) {
-        this.recordingMedicalExaminationPage = recordingMedicalExaminationPage;
+    public void setRecordingMedicalExaminationPage(List<MedicalExaminationPage> medicalExaminationPage) {
+        this.medicalExaminationPage = medicalExaminationPage;
     }
 
-    public void addRecordingMedicalExaminationPage(RecordingMedicalExaminationPage recordingMedicalExaminationPage) {
+    public void addRecordingMedicalExaminationPage(MedicalExaminationPage medicalExaminationPage) {
 
-        if (this.recordingMedicalExaminationPage == null) {
-            this.recordingMedicalExaminationPage = new ArrayList<>();
+        if (this.medicalExaminationPage == null) {
+            this.medicalExaminationPage = new ArrayList<>();
         }
 
-        this.recordingMedicalExaminationPage.add(recordingMedicalExaminationPage);
+        this.medicalExaminationPage.add(medicalExaminationPage);
     }
 
     public List<VaccinationPage> getVaccinationPage() {
@@ -191,20 +193,20 @@ public class MedicalCard {
         this.vaccinationPage.add(vaccinationPage);
     }
 
-    public List<XRayExaminationPage> getXRayExaminationPage() {
-        return xRayExaminationPage;
+    public List<XRayPage> getXRayExaminationPage() {
+        return xRayPage;
     }
 
-    public void setXRayExaminationPage(List<XRayExaminationPage> xRayExaminationPage) {
-        this.xRayExaminationPage = xRayExaminationPage;
+    public void setXRayExaminationPage(List<XRayPage> xRayPage) {
+        this.xRayPage = xRayPage;
     }
 
-    public void addXRayExaminationPage(XRayExaminationPage xRayExaminationPage) {
+    public void addXRayExaminationPage(XRayPage xRayPage) {
 
-        if (this.xRayExaminationPage == null) {
-            this.xRayExaminationPage = new ArrayList<>();
+        if (this.xRayPage == null) {
+            this.xRayPage = new ArrayList<>();
         }
 
-        this.xRayExaminationPage.add(xRayExaminationPage);
+        this.xRayPage.add(xRayPage);
     }
 }

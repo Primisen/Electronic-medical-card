@@ -1,13 +1,13 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "gynecological_examination_part")
-public class GynecologicalExaminationPage {
+@Table(name = "xray_examination_part")
+public class XRayPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,19 +20,18 @@ public class GynecologicalExaminationPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
-    private MedicalWorker medicalWorker;
+    private User medicalWorker;
 
     @Column(name = "record_date")
     private Date recordDate;
 
-    @Column(name = "diagnosis")
-    private String diagnosis;
+    @Column(name = "type_of_research")
+    private String typeOfResearch;
 
-    @Column(name = "cytology")
-    private String cytology;
+    @Column(name = "dose")
+    private String dose;
 
-    public GynecologicalExaminationPage() {
-    }
+    public XRayPage() {}
 
     public long getId() {
         return id;
@@ -50,11 +49,11 @@ public class GynecologicalExaminationPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getMedicalWorker() {
+    public User getMedicalWorker() {
         return medicalWorker;
     }
 
-    public void setMedicalWorker(MedicalWorker medicalWorker) {
+    public void setMedicalWorker(User medicalWorker) {
         this.medicalWorker = medicalWorker;
     }
 
@@ -66,19 +65,19 @@ public class GynecologicalExaminationPage {
         this.recordDate = recordDate;
     }
 
-    public String getDiagnosis() {
-        return diagnosis;
+    public String getTypeOfResearch() {
+        return typeOfResearch;
     }
 
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+    public void setTypeOfResearch(String typeOfResearch) {
+        this.typeOfResearch = typeOfResearch;
     }
 
-    public String getCytology() {
-        return cytology;
+    public String getDose() {
+        return dose;
     }
 
-    public void setCytology(String cytology) {
-        this.cytology = cytology;
+    public void setDose(String dose) {
+        this.dose = dose;
     }
 }

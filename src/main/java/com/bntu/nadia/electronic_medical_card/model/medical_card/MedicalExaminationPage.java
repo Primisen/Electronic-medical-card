@@ -1,13 +1,13 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "recording_medical_examination_part")
-public class RecordingMedicalExaminationPage {
+public class MedicalExaminationPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +20,11 @@ public class RecordingMedicalExaminationPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receiving_doctor_id", referencedColumnName = "id")
-    private MedicalWorker receivingDoctor;
+    private User receivingDoctor;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "treatment_doctor_id", referencedColumnName = "id")
-    private MedicalWorker treatmentDoctor;
+    private User treatmentDoctor;
 
     @Column(name = "record_date")
     private Date recordDate;
@@ -39,7 +39,7 @@ public class RecordingMedicalExaminationPage {
     private String diagnosis;
 
     @Column(name = "survey_plan")
-    private String survey_plan;
+    private String surveyPlan;
 
     @Column(name = "treatment")
     private String treatment;
@@ -56,7 +56,7 @@ public class RecordingMedicalExaminationPage {
     @Column(name = "ad")
     private String ad;
 
-    public RecordingMedicalExaminationPage() {}
+    public MedicalExaminationPage() {}
 
     public long getId() {
         return id;
@@ -74,19 +74,19 @@ public class RecordingMedicalExaminationPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getReceivingDoctor() {
+    public User getReceivingDoctor() {
         return receivingDoctor;
     }
 
-    public void setReceivingDoctor(MedicalWorker receivingDoctor) {
+    public void setReceivingDoctor(User receivingDoctor) {
         this.receivingDoctor = receivingDoctor;
     }
 
-    public MedicalWorker getTreatmentDoctor() {
+    public User getTreatmentDoctor() {
         return treatmentDoctor;
     }
 
-    public void setTreatmentDoctor(MedicalWorker treatmentDoctor) {
+    public void setTreatmentDoctor(User treatmentDoctor) {
         this.treatmentDoctor = treatmentDoctor;
     }
 
@@ -122,12 +122,12 @@ public class RecordingMedicalExaminationPage {
         this.diagnosis = diagnosis;
     }
 
-    public String getSurvey_plan() {
-        return survey_plan;
+    public String getSurveyPlan() {
+        return surveyPlan;
     }
 
-    public void setSurvey_plan(String survey_plan) {
-        this.survey_plan = survey_plan;
+    public void setSurveyPlan(String surveyPlan) {
+        this.surveyPlan = surveyPlan;
     }
 
     public String getTreatment() {

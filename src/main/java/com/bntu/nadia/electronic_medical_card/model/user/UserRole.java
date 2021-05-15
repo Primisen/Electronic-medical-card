@@ -1,6 +1,6 @@
 package com.bntu.nadia.electronic_medical_card.model.user;
 
-public enum UserRole {
+public enum UserRole {//remove this enum
     PATIENT(1, "пациент"),
     MEDICAL_WORKER(2, "медработник");
 

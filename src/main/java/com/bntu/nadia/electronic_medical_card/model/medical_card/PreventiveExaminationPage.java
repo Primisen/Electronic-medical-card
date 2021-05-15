@@ -1,7 +1,7 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
 import com.bntu.nadia.electronic_medical_card.model.medical_card.added.Questionnaire;
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,7 +21,7 @@ public class PreventiveExaminationPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
-    private MedicalWorker medicalWorker;
+    private User medicalWorker;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "questionnaire_id")
@@ -75,11 +75,11 @@ public class PreventiveExaminationPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getMedicalWorker() {
+    public User getMedicalWorker() {
         return medicalWorker;
     }
 
-    public void setMedicalWorker(MedicalWorker medicalWorker) {
+    public void setMedicalWorker(User medicalWorker) {
         this.medicalWorker = medicalWorker;
     }
 

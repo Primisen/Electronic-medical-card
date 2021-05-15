@@ -1,6 +1,6 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class DiagnosisPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
-    private MedicalWorker medicalWorker;
+    private User medicalWorker;
 
     @Column(name = "record_date")
     private Date recordDate;
@@ -29,7 +29,7 @@ public class DiagnosisPage {
     private String diagnosisName;
 
     @Column(name = "newly_diagnosed")
-    private String newlyDiagnosed;
+    private boolean newlyDiagnosed;
 
     public DiagnosisPage() {
     }
@@ -50,11 +50,11 @@ public class DiagnosisPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getMedicalWorker() {
+    public User getMedicalWorker() {
         return medicalWorker;
     }
 
-    public void setMedicalWorker(MedicalWorker medicalWorker) {
+    public void setMedicalWorker(User medicalWorker) {
         this.medicalWorker = medicalWorker;
     }
 
@@ -74,11 +74,11 @@ public class DiagnosisPage {
         this.diagnosisName = diagnosisName;
     }
 
-    public String getNewlyDiagnosed() {
+    public boolean isNewlyDiagnosed() {
         return newlyDiagnosed;
     }
 
-    public void setNewlyDiagnosed(String newlyDiagnosed) {
+    public void setNewlyDiagnosed(boolean newlyDiagnosed) {
         this.newlyDiagnosed = newlyDiagnosed;
     }
 }

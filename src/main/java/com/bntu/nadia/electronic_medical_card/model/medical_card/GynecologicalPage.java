@@ -1,13 +1,13 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "xray_examination_part")
-public class XRayExaminationPage {
+@Table(name = "gynecological_examination_part")
+public class GynecologicalPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,18 +20,19 @@ public class XRayExaminationPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
-    private MedicalWorker medicalWorker;
+    private User medicalWorker;
 
     @Column(name = "record_date")
     private Date recordDate;
 
-    @Column(name = "type_of_research")
-    private String typeOfResearch;
+    @Column(name = "diagnosis")
+    private String diagnosis;
 
-    @Column(name = "dose")
-    private String dose;
+    @Column(name = "cytology")
+    private String cytology;
 
-    public XRayExaminationPage() {}
+    public GynecologicalPage() {
+    }
 
     public long getId() {
         return id;
@@ -49,11 +50,11 @@ public class XRayExaminationPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getMedicalWorker() {
+    public User getMedicalWorker() {
         return medicalWorker;
     }
 
-    public void setMedicalWorker(MedicalWorker medicalWorker) {
+    public void setMedicalWorker(User medicalWorker) {
         this.medicalWorker = medicalWorker;
     }
 
@@ -65,19 +66,19 @@ public class XRayExaminationPage {
         this.recordDate = recordDate;
     }
 
-    public String getTypeOfResearch() {
-        return typeOfResearch;
+    public String getDiagnosis() {
+        return diagnosis;
     }
 
-    public void setTypeOfResearch(String typeOfResearch) {
-        this.typeOfResearch = typeOfResearch;
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
-    public String getDose() {
-        return dose;
+    public String getCytology() {
+        return cytology;
     }
 
-    public void setDose(String dose) {
-        this.dose = dose;
+    public void setCytology(String cytology) {
+        this.cytology = cytology;
     }
 }

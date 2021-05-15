@@ -1,7 +1,7 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
 import com.bntu.nadia.electronic_medical_card.model.medical_card.added.RiskFactors;
-import com.bntu.nadia.electronic_medical_card.model.user.MedicalWorker;
+import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class AnamnesisPage {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
-    private MedicalWorker medicalWorker;
+    private User medicalWorker;
 
     @OneToMany(mappedBy = "anamnesisPage")
     private List<RiskFactors> riskFactors;
@@ -77,11 +77,11 @@ public class AnamnesisPage {
         this.medicalCard = medicalCard;
     }
 
-    public MedicalWorker getMedicalWorker() {
+    public User getMedicalWorker() {
         return medicalWorker;
     }
 
-    public void setMedicalWorker(MedicalWorker medicalWorker) {
+    public void setMedicalWorker(User medicalWorker) {
         this.medicalWorker = medicalWorker;
     }
 

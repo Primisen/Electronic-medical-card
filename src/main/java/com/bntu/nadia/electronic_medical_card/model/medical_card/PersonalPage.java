@@ -1,12 +1,13 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
 import com.bntu.nadia.electronic_medical_card.model.medical_card.added.Address;
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.DispensaryGroup;
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.Gender;
-import com.bntu.nadia.electronic_medical_card.model.user.User;
+import com.bntu.nadia.electronic_medical_card.model.medical_card.added.DispensaryObservationGroup;
+import com.bntu.nadia.electronic_medical_card.model.medical_card.added.PhoneNumber;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "personal_part")
@@ -17,8 +18,7 @@ public class PersonalPage {
     @Column(name = "id")
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_card_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "personalPage")
     private MedicalCard medicalCard;
 
     @Column(name = "name")
@@ -31,14 +31,17 @@ public class PersonalPage {
     private String patronymic;
 
     @Column(name = "gender")
-    private Gender gender;
+    private String gender;
 
     @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    private Calendar dateOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address homeAddress;
+    private Address address;
+
+    @OneToMany(mappedBy = "personalPage")
+    private List<PhoneNumber> phoneNumbers;
 
     @Column(name = "work_place")
     private String workPlace;
@@ -46,8 +49,8 @@ public class PersonalPage {
     @Column(name = "position")
     private String position;
 
-    @Column(name = "dispensary_observation_group")
-    private DispensaryGroup dispensaryGroup;
+    @OneToMany(mappedBy = "personalPage")
+    private List<DispensaryObservationGroup> dispensaryObservationGroup;
 
     @Column(name = "disease")
     private String disease;
@@ -64,9 +67,10 @@ public class PersonalPage {
     @Column(name = "privileged_group")
     private String privilegedGroup;
 
-    @OneToOne
-    @JoinColumn(name = "observing_person_id", referencedColumnName = "id")
-    private User observingPerson;
+//    @OneToOne
+//    @JoinColumn(name = "observing_person", referencedColumnName = "id")
+    @Column(name = "observing_person")
+    private String observingPersonData;
 
     public PersonalPage() {
     }
@@ -111,28 +115,43 @@ public class PersonalPage {
         this.patronymic = patronymic;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
+    public Calendar getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Calendar dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public void addPhoneNumber(PhoneNumber phoneNumber) {
+        if (phoneNumbers == null) {
+            phoneNumbers = new ArrayList<>();
+        }
+        phoneNumbers.add(phoneNumber);
     }
 
     public String getWorkPlace() {
@@ -151,12 +170,21 @@ public class PersonalPage {
         this.position = position;
     }
 
-    public DispensaryGroup getDispensaryGroup() {
-        return dispensaryGroup;
+    public List<DispensaryObservationGroup> getDispensaryObservationGroup() {
+        return dispensaryObservationGroup;
     }
 
-    public void setDispensaryGroup(DispensaryGroup dispensaryGroup) {
-        this.dispensaryGroup = dispensaryGroup;
+    public void setDispensaryObservationGroup(List<DispensaryObservationGroup> dispensaryObservationGroup) {
+        this.dispensaryObservationGroup = dispensaryObservationGroup;
+    }
+
+    public void addDispensaryObservationGroup(DispensaryObservationGroup dispensaryObservationGroup) {
+
+        if (this.dispensaryObservationGroup == null) {
+            this.dispensaryObservationGroup = new ArrayList<>();
+        }
+
+        this.dispensaryObservationGroup.add(dispensaryObservationGroup);
     }
 
     public String getDisease() {
@@ -199,11 +227,11 @@ public class PersonalPage {
         this.privilegedGroup = privilegedGroup;
     }
 
-    public User getObservingPerson() {
-        return observingPerson;
+    public String getObservingPersonData() {
+        return observingPersonData;
     }
 
-    public void setObservingPerson(User observingPerson) {
-        this.observingPerson = observingPerson;
+    public void setObservingPersonData(String observingPersonData) {
+        this.observingPersonData = observingPersonData;
     }
 }
