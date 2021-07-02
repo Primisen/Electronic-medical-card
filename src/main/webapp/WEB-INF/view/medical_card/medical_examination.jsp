@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
@@ -11,108 +12,161 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
+<sec:authorize access="hasAuthority('PATIENT')">
+    <jsp:include page="../medical_card_navigation.jsp"/>
+</sec:authorize>
 
 
-<div class="container">
-
-    <h4 class="text-center mt-4 mb-4">Лист для врачебных записей</h4>
-
-<c:forEach var="medicalExamination" items="${medicalExamination}">
-
-<div>
-        <div class="row">
-            <div class="col-2">
-                <h5>Жалобы на</h5>
-            </div>
-            <div class="col">${medicalExamination.complaints}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Объективно</h5>
-            </div>
-            <div class="col">${medicalExamination.objectively}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Диагноз</h5>
-            </div>
-            <div class="col">${medicalExamination.diagnosis}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>План обследования</h5>
-            </div>
-            <div class="col">${medicalExamination.surveyPlan}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Лечение</h5>
-            </div>
-            <div class="col">${medicalExamination.treatment}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>АД</h5>
-            </div>
-            <div class="col">${medicalExamination.ad}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Частота сердцебиения</h5>
-            </div>
-            <div class="col">${medicalExamination.heartRate}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>ЧД</h5>
-            </div>
-            <div class="col">${medicalExamination.bh}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Дата</h5>
-            </div>
-            <div class="col">${medicalExamination.recordDate}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-2">
-                <h5>Врач</h5>
-            </div>
-            <div class="col">${medicalExamination.receivingDoctor}</div>
-        </div>
-    </div>
-
-</c:forEach>
+<div class="container col-8">
+    <h4 class="text-center mt-5 mb-5">Лист для врачебных записей</h4>
 
     <sec:authorize access="hasAuthority('MEDICAL')">
 
-        <form:form method="post" modelAttribute="medicalExaminationPage">
+        <div class="p-3  mb-5 mt-5 bg-light border border-1">
 
-            <form:input type="text" path="complaints" placeholder="Жалобы на "/>
-            <form:input type="text" path="objectively" placeholder="Объективно"/>
-            <form:input type="text" path="diagnosis" placeholder="Диагноз"/>
-            <form:input type="text" path="surveyPlan" placeholder="План обследования"/>
-            <form:input type="text" path="treatment" placeholder="Лечение"/>
-            <form:input type="text" path="ad" placeholder="АД"/>
-            <form:input type="text" path="heartRate" placeholder="Частота сердцебиения"/>
-            <form:input type="text" path="bh" placeholder="ЧД"/>
+            <nav class="navbar sticky-top navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Добавление записи</a>
+                </div>
+            </nav>
 
-            <button type="submit">Добавить</button>
+            <form:form method="post" modelAttribute="medicalExaminationPage">
 
-        </form:form>
+                <div class="mb-3">
+                    <label for="d" class="form-label">Жалобы на</label>
+                    <form:input type="text" path="complaints" placeholder="Жалобы на" id="d" cssClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="h" class="form-label">Объективно</label>
+                    <form:input type="text" path="objectively" placeholder="Объективно" id="h" cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">Диагноз</label>
+                    <form:input type="text" path="diagnosis" placeholder="Диагноз" id="d" cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">План обследования</label>
+                    <form:input type="text" path="surveyPlan" placeholder="План обследования" id="d"
+                                cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">Лечение</label>
+                    <form:input type="text" path="treatment" placeholder="Лечение" id="d" cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">АД</label>
+                    <form:input type="text" path="ad" placeholder="АД" id="d" cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">Частота сердцебиения</label>
+                    <form:input type="text" path="heartRate" placeholder="Частота сердцебиения" id="d"
+                                cssClass="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="d" class="form-label">ЧД</label>
+                    <form:input type="text" path="bh" placeholder="ЧД" id="d" cssClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-secondary">Добавить</button>
+                </div>
+
+            </form:form>
+        </div>
+
+
     </sec:authorize>
 
+    <table class="table">
+        <tbody>
+
+        <c:forEach var="medicalExaminationPage" items="${medicalExamination}">
+            <tr>
+                <td>
+                    <h5>Жалобы на</h5>
+                </td>
+                <td>${medicalExaminationPage.complaints}</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Объективно</h5>
+                </td>
+                <td>${medicalExaminationPage.objectively}</td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Диагноз</h5>
+                </td>
+                <td>${medicalExaminationPage.diagnosis}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>План обследования</h5>
+                </td>
+                <td>${medicalExaminationPage.surveyPlan}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Лечение</h5>
+                </td>
+                <td>${medicalExaminationPage.treatment}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>АД</h5>
+                </td>
+                <td>${medicalExaminationPage.ad}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Частота сердцебиения</h5>
+                </td>
+                <td>${medicalExaminationPage.heartRate}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>ЧД</h5>
+                </td>
+                <td>${medicalExaminationPage.bh}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Дата</h5>
+                </td>
+                <td><p><fmt:formatDate value="${medicalExaminationPage.recordDate}" pattern="dd.MM.yyyy"/></p></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h5>Врач</h5>
+                </td>
+                <td>
+                    <p>${medicalExaminationPage.receivingDoctor.surname} ${medicalExaminationPage.receivingDoctor.name} ${medicalExaminationPage.receivingDoctor.patronymic}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>------------</h5>
+                </td>
+            </tr>
+        </c:forEach>
+
+        </tbody>
+    </table>
+
 </div>
+
 <jsp:include page="../footer.jsp"/>
 </body>
 </html>

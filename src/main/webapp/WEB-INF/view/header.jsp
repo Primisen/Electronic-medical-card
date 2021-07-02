@@ -22,27 +22,31 @@
                         <li>
                             <a class="nav-link px-2 link-dark" href="/patients">Список пациентов</a>
                         </li>
-                        <li>
-                            <a class="nav-link px-2 link-dark" href="/medical_helper">Как пользоваться картой</a>
-                        </li>
+<%--                        <li>--%>
+<%--                            <a class="nav-link px-2 link-dark" href="/medical_helper">Как пользоваться картой</a>--%>
+<%--                        </li>--%>
                     </ul>
                 </sec:authorize>
 
-                <sec:authorize access="hasAuthority('PATIENT')">
-                    <ul class="nav col-12 col-lg-auto mb-2 justify-content-end mb-md-0">
-                        <li>
-                            <a class="nav-link px-2 link-dark" href="/patient_helper">Как пользоваться картой</a>
-                        </li>
-                    </ul>
-                </sec:authorize>
+<%--                <sec:authorize access="hasAuthority('PATIENT')">--%>
+<%--                    <ul class="nav col-12 col-lg-auto mb-2 justify-content-end mb-md-0">--%>
+<%--                        <li>--%>
+<%--                            <a class="nav-link px-2 link-dark" href="/patient_helper">Как пользоваться картой</a>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                </sec:authorize>--%>
 
                 <div class="dropdown text-end">
                     <a class="nav-link dropdown-toggle px-2 link-dark" data-bs-toggle="dropdown" href="#" role="button"
                        aria-expanded="false">${user.surname} ${user.name}</a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="#">Настройки</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+<%--                        <li><a class="dropdown-item" href="#">Настройки</a></li>--%>
+
+                        <sec:authorize access="hasAuthority('ADMIN')">
+                            <li><a class="dropdown-item" href="/registration-applications">Заявки на регистрацию</a></li>
+                            <li><a class="dropdown-item" href="#">Управление пользователями</a></li>
+                        </sec:authorize>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>

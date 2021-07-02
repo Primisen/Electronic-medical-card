@@ -42,6 +42,9 @@ public class PreventiveExaminationPage {
     @Column(name = "esophagus")
     private String esophagus;
 
+    @Column(name = "stomach")
+    private String stomach;
+
     @Column(name = "rectum")
     private String rectum;
 
@@ -129,6 +132,14 @@ public class PreventiveExaminationPage {
 
     public void setEsophagus(String esophagus) {
         this.esophagus = esophagus;
+    }
+
+    public String getStomach() {
+        return stomach;
+    }
+
+    public void setStomach(String stomach) {
+        this.stomach = stomach;
     }
 
     public String getRectum() {

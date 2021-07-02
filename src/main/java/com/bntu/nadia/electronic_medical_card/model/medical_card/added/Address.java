@@ -27,7 +27,7 @@ public class Address {
     private String homeNumber;
 
     @Column(name = "flat_number")
-    private int flatNumber;
+    private String flatNumber;
 
     @Column(name = "case_number")
     private String caseNumber;
@@ -42,7 +42,7 @@ public class Address {
         this.homeNumber = homeNumber;
     }
 
-    public Address(String region, String district, String locality, String street, String homeNumber, int flatNumber, String caseNumber) {
+    public Address(String region, String district, String locality, String street, String homeNumber, String flatNumber, String caseNumber) {
         this.region = region;
         this.district = district;
         this.locality = locality;
@@ -100,11 +100,11 @@ public class Address {
         this.homeNumber = homeNumber;
     }
 
-    public int getFlatNumber() {
+    public String getFlatNumber() {
         return flatNumber;
     }
 
-    public void setFlatNumber(int flatNumber) {
+    public void setFlatNumber(String flatNumber) {
         this.flatNumber = flatNumber;
     }
 

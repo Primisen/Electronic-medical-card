@@ -13,7 +13,7 @@ public class DispensaryObservationGroup {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_part_id", referencedColumnName = "id")
     private PersonalPage personalPage;
 

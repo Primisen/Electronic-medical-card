@@ -9,6 +9,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,9 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
+<sec:authorize access="hasAuthority('PATIENT')">
+    <jsp:include page="../medical_card_navigation.jsp"/>
+</sec:authorize>
 
 <div class="container col-8">
 
@@ -85,7 +88,7 @@
 
             <tr>
                 <td>
-                    <p>${diagnosis.recordDate}</p>
+                    <p><fmt:formatDate value="${diagnosis.recordDate}" pattern="dd.MM.yyyy"/></p>
                 </td>
                 <td>
                     <p>${diagnosis.diagnosisName}</p>

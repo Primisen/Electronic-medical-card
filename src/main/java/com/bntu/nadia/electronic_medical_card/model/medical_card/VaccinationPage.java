@@ -26,7 +26,7 @@ public class VaccinationPage {
     private Date recordDate;
 
     @Column(name = "vaccination_name")
-    private String vaccination_name;
+    private String vaccinationName;
 
     @Column(name = "dose")
     private String dose;
@@ -77,12 +77,12 @@ public class VaccinationPage {
         this.recordDate = recordDate;
     }
 
-    public String getVaccination_name() {
-        return vaccination_name;
+    public String getVaccinationName() {
+        return vaccinationName;
     }
 
-    public void setVaccination_name(String vaccination_name) {
-        this.vaccination_name = vaccination_name;
+    public void setVaccinationName(String vaccinationName) {
+        this.vaccinationName = vaccinationName;
     }
 
     public String getDose() {

@@ -35,6 +35,8 @@ public class MedicalCard {
     @JoinColumn(name = "personal_part_id", referencedColumnName = "id")
     private PersonalPage personalPage;
 
+    //Другие поля, конструктор, геттеры, сеттеры
+
     @OneToMany(mappedBy = "medicalCard")
     private List<PreventiveExaminationPage> preventiveExaminationPage;
 

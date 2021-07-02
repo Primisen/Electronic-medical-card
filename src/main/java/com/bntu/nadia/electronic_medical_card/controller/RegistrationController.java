@@ -24,50 +24,14 @@ public class RegistrationController {
     @Autowired
     private MedicalCardServiceImpl medicalCardService;
 
-    @GetMapping("/registration2")
-    public String patientRegistration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "patient_registration2";
-    }
-
-    @PostMapping("/registration2")
-    public String addPatient(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "patient_registration2";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "patient_registration2";
-        }
-
-//        PersonalPage personalPage = new PersonalPage();
-//        personalPage.addPhoneNumber();
-//
-//        MedicalCard medicalCard = new MedicalCard();
-//        medicalCard.setPersonalPage();
-
-        //no!
-
-//        medicalCardService.savePersonalPage(personalPageForm);
-
-        if (!userService.savePatient(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "patient_registration2";
-        }
-
-        return "redirect:/login";
-    }
-
-    @GetMapping("/medical_registration")
+    @GetMapping("/medical-registration")
     public String medicalRegistration(Model model) {
         model.addAttribute("userForm", new User());
 
         return "medical_registration";
     }
 
-    @PostMapping("/medical_registration")
+    @PostMapping("/medical-registration")
     public String addMedical(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -89,12 +53,6 @@ public class RegistrationController {
     public String testRegistration(ModelMap model) {
         model.addAttribute("medicalCardForm", new MedicalCard());
 
-//        List<String> genders = new ArrayList<>();
-//        genders.add(Gender.MAN.getRussianValue());
-//        genders.add(Gender.WOMAN.getRussianValue());
-//
-//        model.addAttribute("gender", genders);
-
         return "registration";
     }
 
@@ -103,6 +61,9 @@ public class RegistrationController {
 
         if (bindingResult.hasErrors()) {
             System.out.println("1");
+            for (int i = 0; i < bindingResult.getErrorCount(); i++) {
+                System.out.println(bindingResult.getAllErrors().get(i).toString());
+            }
             return "registration";
         }
         if (!medicalCard.getPatient().getPassword().equals(medicalCard.getPatient().getPasswordConfirm())){
@@ -119,6 +80,16 @@ public class RegistrationController {
 //        medicalCard.getPersonalPage().setDateOfBirth(new GregorianCalendar(2020, 5, 8));
 //        medicalCard.getPersonalPage().setGender(Gender.WOMAN);
 //        userService.savePatient(medicalCard.getPatient());
+
+//        int day = Integer.parseInt(model.getAttribute("day").toString());
+//        int month = Integer.parseInt(model.getAttribute("month").toString());
+//        int year = Integer.parseInt(model.getAttribute("year").toString());
+
+//        Date date  = new Date();
+//
+//
+//        System.out.println(day + " rgrg" + month + " " + year );
+//        medicalCard.getPersonalPage().setDateOfBirth(new Date(year, month, day));
         System.out.println("3");
         medicalCardService.save(medicalCard);
         System.out.println("5");

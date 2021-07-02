@@ -9,6 +9,7 @@ create table user_role (
 
 insert into user_role (role_name) value ("PATIENT");
 insert into user_role (role_name) value ("MEDICAL");
+insert into user_role (role_name) value ("ADMIN");
 
 create table user(
 	id bigint auto_increment not null,
@@ -17,11 +18,7 @@ create table user(
 	patronymic varchar(50) not null,
 	login varchar(70) not null,
 	encrypted_password varchar(90) not null,
-	-- passport_series varchar(30),
-	-- passport_id varchar(30),
-  	-- individual_number varchar(30),
-	-- authority_that_issued_passport varchar(30),
-	-- date_of_issue_of_passport date,
+    -- active bit not null,
 
 	primary key (id)
 );
@@ -30,12 +27,11 @@ create table address(
 	id bigint auto_increment not null,
     street varchar(30),
     home_number varchar(30) not null,
-    case_number int,
-    flat_number int,
+    case_number varchar(10),
+    flat_number varchar(30),
     locality varchar(30) not null,
     district varchar(30) not null,
     region varchar(30) not null,
-    -- postcode varchar(20),
     
     primary key (id)
 );
@@ -57,7 +53,6 @@ create table personal_part(
     privileged_group varchar(255),
     observing_person varchar(255),
     -- medical_card_id bigint,
-
 	primary key (id),
     foreign key (address_id) references address(id)
     -- foreign key (medical_card_id) references medical_card(id)
@@ -232,7 +227,7 @@ create table preventive_examination_part(
 	tongue_and_oral_mucosa varchar(255),
 	esophagus varchar(255),
 	stomach varchar(255),
-	rectum varchar(255),
+	rectum varchar(255),	
 	lungs varchar(255),
 	breast varchar(255),
 	uterus varchar(255),
@@ -251,9 +246,9 @@ create table vaccination_part (
     record_date date not null,
     health_worker_id bigint not null,
     vaccination_name varchar(30),
-    dose varchar(30),
-    name_of_drug varchar(30),
-    series varchar(30),
+    dose varchar(30) not null,
+    name_of_drug varchar(30) not null,
+    series varchar(30) not null,
     local_reaction varchar(30),
     general_reaction varchar(30),
     medical_card_id bigint not null,

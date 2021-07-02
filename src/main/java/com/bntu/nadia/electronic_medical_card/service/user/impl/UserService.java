@@ -70,9 +70,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         MedicalCard medicalCard = new MedicalCard();
-//        medicalCard.setPersonalPage();
-
-//        user.setMedicalCard();
 
         userRepository.save(user);
         return true;
@@ -107,4 +104,14 @@ public class UserService implements UserDetailsService {
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public User findUserBySurname(String surname){
+        return userRepository.findBySurname(surname);
+    }
+
+//    public void activeUser(User user){
+//
+//        user.setActive(true);
+//        userRepository.save(user);
+//    }
 }

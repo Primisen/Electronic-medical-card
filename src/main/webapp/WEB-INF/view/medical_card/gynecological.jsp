@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
@@ -21,9 +22,11 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
+<sec:authorize access="hasAuthority('PATIENT')">
+    <jsp:include page="../medical_card_navigation.jsp"/>
+</sec:authorize>
 
-<div class="container">
+<div class="container col-8">
 
     <h4 class="text-center mt-5 mb-5">Осмотр гинеколога</h4>
 
@@ -77,20 +80,20 @@
         </thead>
 
         <tbody>
-        <c:forEach var="gynecological" items="${gynecological}">
+        <c:forEach var="vaccination" items="${gynecological}">
 
             <tr>
                 <td>
-                    <p>${gynecological.recordDate}</p>
+                    <p><fmt:formatDate value="${vaccination.recordDate}" pattern="dd.MM.yyyy"/></p>
                 </td>
                 <td>
-                    <p>${gynecological.diagnosis}</p>
+                    <p>${vaccination.diagnosis}</p>
                 </td>
                 <td>
-                    <p>${gynecological.cytology}</p>
+                    <p>${vaccination.cytology}</p>
                 </td>
                 <td>
-                    <p>${gynecological.medicalWorker.surname} ${gynecological.medicalWorker.name} ${gynecological.medicalWorker.patronymic}</p>
+                    <p>${vaccination.medicalWorker.surname} ${vaccination.medicalWorker.name} ${vaccination.medicalWorker.patronymic}</p>
                 </td>
             </tr>
         </c:forEach>

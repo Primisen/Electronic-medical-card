@@ -5,7 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersonalPageRepository extends JpaRepository<PersonalPage, Long> {
 
-//    @Query(value = "", nativeQuery = true)
-//    PersonalPage findAll();
 
 }

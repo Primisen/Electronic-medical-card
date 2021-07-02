@@ -5,7 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -34,6 +36,9 @@ public class User implements UserDetails {
 //    @Column(name = "user_role_id")
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+//    @Column(name = "active")
+//    private boolean active;
 
     @Transient
     private String passwordConfirm;
@@ -172,6 +177,14 @@ public class User implements UserDetails {
     public void setMedicalCard(MedicalCard medicalCard) {
         this.medicalCard = medicalCard;
     }
+
+//    public boolean isActive() {
+//        return active;
+//    }
+//
+//    public void setActive(boolean active) {
+//        this.active = active;
+//    }
 
     //    public String getPassportSeries() {
 //        return passportSeries;

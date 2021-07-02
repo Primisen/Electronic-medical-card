@@ -1,12 +1,9 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.RiskFactors;
 import com.bntu.nadia.electronic_medical_card.model.user.User;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "anamnesis_part")
@@ -25,8 +22,8 @@ public class AnamnesisPage {
     @JoinColumn(name = "health_worker_id", referencedColumnName = "id")
     private User medicalWorker;
 
-    @OneToMany(mappedBy = "anamnesisPage")
-    private List<RiskFactors> riskFactors;
+    @Column(name = "risk")
+    private String riskFactors;
 
     @Column(name = "record_date")
     private Date recordDate;
@@ -85,21 +82,12 @@ public class AnamnesisPage {
         this.medicalWorker = medicalWorker;
     }
 
-    public List<RiskFactors> getRiskFactors() {
+    public String getRiskFactors() {
         return riskFactors;
     }
 
-    public void setRiskFactors(List<RiskFactors> riskFactors) {
+    public void setRiskFactors(String riskFactors) {
         this.riskFactors = riskFactors;
-    }
-
-    public void addRiskFactors(RiskFactors riskFactors) {
-
-        if (this.riskFactors == null) {
-            this.riskFactors = new ArrayList<>();
-        }
-
-        this.riskFactors.add(riskFactors);
     }
 
     public Date getRecordDate() {

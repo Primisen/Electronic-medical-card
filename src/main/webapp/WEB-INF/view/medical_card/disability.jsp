@@ -8,7 +8,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
@@ -18,67 +19,93 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
+<sec:authorize access="hasAuthority('PATIENT')">
+    <jsp:include page="../medical_card_navigation.jsp"/>
+</sec:authorize>
 
 
-<div class="container">
+<div class="container col-8">
 
-    <h4 class="text-center mt-4 mb-4">Лист временной нетрудоспособности</h4>
+    <h4 class="text-center mt-5 mb-5">Лист временной нетрудоспособности</h4>
 
-    <div>
-        <div class="row">
-            <div class="col-2 bg-light border">
-                <h5>Дата</h5>
-            </div>
-            <div class="col bg-light border">
-                <h5>Диагноз(причина) временной нетрудоспособности</h5>
-            </div>
-            <div class="col bg-light border">
-                <h5>Дата закрытия</h5>
-            </div>
-            <div class="col bg-light border">
-                <h5>Количество дней</h5>
-            </div>
-            <div class="col-2 bg-light border">
-                <h5>Врач</h5>
-            </div>
-        </div>
+    <sec:authorize access="hasAuthority('MEDICAL')">
 
-        <c:forEach var="disability" items="${disability}">
+        <div class="p-3  mb-5 mt-5 bg-light border border-1">
 
-            <div class="row">
-                <div class="col-2 bg-light border">
-                    <p>${disability.beginDate}</p>
+            <nav class="navbar sticky-top navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Добавление</a>
                 </div>
-                <div class="col bg-light border">
-                    <p>${disability.diagnosis}</p>
-                </div>
-                <div class="col bg-light border">
-                    <p>${disability.endDate}</p>
-                </div>
-                <div class="col bg-light border">
-                    <p>${disability.numberOfDays}</p>
-                </div>
-                <div class="col-2 bg-light border">
-                    <p>${disability.medicalWorker.surname} ${disability.medicalWorker.name} ${disability.medicalWorker.patronymic}</p>
-                </div>
-            </div>
-        </c:forEach>
-
-        <sec:authorize access="hasAuthority('MEDICAL')">
+            </nav>
 
             <form:form method="post" modelAttribute="disabilityPage">
 
-                <form:input type="text" path="diagnosis" placeholder="Диагноз"/>
-                <form:input type="text" path="endDate" placeholder="Дата закрытия"/>
-                <form:input type="text" path="numberOfDays" placeholder="Количество дней"/>
-
-                <button type="submit">Добавить</button>
-
+                <div class="mb-3">
+                    <label for="d" class="form-label">Диагноз</label>
+                    <form:input cssClass="form-control" type="text" path="diagnosis" id="d" placeholder="Диагноз"/>
+                </div>
+<%--                <div class="mb-3">--%>
+<%--                    <label for="e" class="form-label">Дата закрытия</label>--%>
+<%--                    <form:input cssClass="form-control" type="text" path="endDate" id="e" placeholder="Дата закрытия"/>--%>
+<%--                </div>--%>
+                <div class="mb-3">
+                    <label for="n" class="form-label">Количество дней</label>
+                    <form:input cssClass="form-control" type="text" path="numberOfDays" id="n" placeholder="Количество дней"/>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-secondary">Добавить</button>
+                </div>
             </form:form>
-        </sec:authorize>
+        </div>
+    </sec:authorize>
 
-    </div>
+    <h4 class="text-center mt-5 mb-5">Таблица учета временной нетрудоспособности</h4>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                <h5>Дата</h5>
+            </th>
+            <th>
+                <h5>Диагноз(причина) временной нетрудоспособности</h5>
+            </th>
+            <th>
+                <h5>Количество дней</h5>
+            </th>
+            <th>
+                <h5>Врач</h5>
+            </th>
+<%--            <th>--%>
+<%--                <h5>Дата закрытия</h5>--%>
+<%--            </th>--%>
+        </tr>
+        </thead>
+
+        <tbody>
+        <c:forEach var="disability" items="${disability}">
+
+            <tr>
+                <td>
+                    <p><fmt:formatDate value="${disability.recordDate}" pattern="dd.MM.yyyy"/></p>
+                </td>
+                <td>
+                    <p>${disability.diagnosis}</p>
+                </td>
+<%--                <td>--%>
+<%--                    <p>${disability.endDate}</p>--%>
+<%--                </td>--%>
+                <td>
+                    <p>${disability.numberOfDays}</p>
+                </td>
+                <td>
+                    <p>${disability.medicalWorker.surname} ${disability.medicalWorker.name} ${disability.medicalWorker.patronymic}</p>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+
+    </table>
 
 </div>
 <jsp:include page="../footer.jsp"/>

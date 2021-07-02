@@ -15,7 +15,9 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
+<sec:authorize access="hasAuthority('PATIENT')">
+    <jsp:include page="../medical_card_navigation.jsp"/>
+</sec:authorize>
 <td class="container">
 
     <%--    <div class="container">--%>
@@ -40,8 +42,6 @@
     <%--        </ol>--%>
     <%--    </nav>--%>
 
-    <c:set var="patient" scope="session" value="${patient}"/>
-
     <div class="container col-8">
         <h4 class="text-center mt-5 mb-5">Медицинская карта амбулаторного больного № ${id}</h4>
 
@@ -62,6 +62,7 @@
                 </td>
                 <td>${gender}</td>
 
+
             </tr>
 
             <tr>
@@ -69,13 +70,16 @@
                     <h5>Дата рождения</h5>
                 </td>
                 <td>${birthday}</td>
+
             </tr>
 
             <tr>
                 <td>
                     <h5>Телефон</h5>
                 </td>
-                <td>${phoneNumber}</td>
+                <%--                <td>${phoneNumber}</td>--%>
+                <td>+375 29 9863524</td>
+
             </tr>
 
             <tr>
@@ -83,46 +87,33 @@
                     <h5>Адрес</h5>
                 </td>
                 <td>${region} область, ${district}
-                    район, ${locality},улица(переулок) ${street}, дом № ${homeNumber}, корпус ${caseNumber},
+                    район, ${locality},улица ${street}, дом № ${homeNumber}, корпус ${caseNumber},
                     квартира ${flatNumber}
                 </td>
             </tr>
 
-            <tr>
-                <td>
-                    <h5>Место работы</h5>
-                </td>
-                <td>${workPlace}</td>
-            </tr>
+<%--            <tr>--%>
+<%--                <td>--%>
+<%--                    <h5>Диспансерная группа</h5>--%>
+<%--                </td>--%>
+<%--                <td>${dispensaryGroup}</td>--%>
+<%--                &lt;%&ndash;                <td>III</td>&ndash;%&gt;--%>
 
-            <tr>
-                <td>
-                    <h5>Должность</h5>
-                </td>
-                <td>${position}</td>
-            </tr>
+<%--            </tr>--%>
 
-            <tr>
-                <td>
-                    <h5>Диспансерная группа</h5>
-                </td>
-                <td>${dispensaryGroup}</td>
-            </tr>
+            <%--            <tr>--%>
+            <%--                <td>--%>
+            <%--                    <h5>Льготы</h5>--%>
+            <%--                </td>--%>
+            <%--&lt;%&ndash;                <td>${privileged}</td>&ndash;%&gt;--%>
+            <%--                <td>нет</td>--%>
 
-            <tr>
-                <td>
-                    <h5>Льготы</h5>
-                </td>
-                <td>${privileged}</td>
-            </tr>
+            <%--            </tr>--%>
 
             </tbody>
         </table>
 
-        <div class="mt-5">
-            todo: документы, подтверждающие льготы
 
-        </div>
     </div>
 
     <jsp:include page="../footer.jsp"/>

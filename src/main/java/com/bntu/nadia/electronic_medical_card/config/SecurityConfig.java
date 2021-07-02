@@ -32,25 +32,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/medical_registration").not().fullyAuthenticated()
+                .antMatchers("/medical-registration").not().fullyAuthenticated()
                 .antMatchers("/test_registration").not().fullyAuthenticated()
-
-//
-//                .antMatchers("/logout").fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/personal_page").hasRole("PATIENT")
-//                .antMatchers("/diagnosis").permitAll()
+//                //Доступ только для пользователей с ролью пациент
+//                .antMatchers("/patient/**").hasRole("PATIENT")
+//                //Доступ только для пользователей с ролью доктора
+//                .antMatchers("/doctor/**").hasRole("DOCTOR")
                 //Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-//                Настройка для входа в систему
+                //Настройка для входа в систему
                 .formLogin()
                 .loginPage("/login")
-//                .loginProcessingUrl("/login")
-//                Перенарпавление на главную страницу после успешного входа
+                //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()

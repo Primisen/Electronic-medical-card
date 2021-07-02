@@ -58,7 +58,6 @@ public class MedicalCardController {
     private IAuthenticationFacade authenticationFacade;
 
     @GetMapping(value = {"/personal_page", "/personal_page/{id}"})
-//    @ResponseBody
     public String personalPage(ModelMap model, @PathVariable(required = false) String id) {
 
         PersonalPage personalPage;
@@ -71,26 +70,44 @@ public class MedicalCardController {
             personalPage = personalPageService.findByPatientId(Long.parseLong(id));
         }
 
-//        PersonalPage personalPage = new PersonalPage();
-//        personalPage.setId(3389);
-//        personalPage.setName("Анна");
-//        personalPage.setSurname("Мармузевич");
-//        personalPage.setPatronymic("Васильевна");
-//        personalPage.setGender(Gender.WOMAN);
-//        personalPage.setDateOfBirth(new GregorianCalendar(2000, 10, 10));
-//        personalPage.addPhoneNumber(new PhoneNumber("+375333995300"));
-//        personalPage.setAddress(new Address("Витебская", "Миорский", "д. Белорусская", "Центральная", "2"));
-//        personalPage.setWorkPlace("EPAM Systems");
-//        personalPage.setPosition("Java-developer");
-//        personalPage.addDispensaryObservationGroup(new DispensaryObservationGroup(DispensaryGroup.D_ONE));
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(personalPage.getId());
+        model.addAttribute("personalPage", personalPage);//для постзапроса
+        model.addAttribute("personalPageId", personalPage.getId());
 
         model.addAttribute("id", personalPage.getId());
         model.addAttribute("name", personalPage.getName());
         model.addAttribute("surname", personalPage.getSurname());
         model.addAttribute("patronymic", personalPage.getPatronymic());
-//        model.addAttribute("birthday", personalPage.getDateOfBirth().getDisplayName(1,1, Locale.getDefault()));
-//        model.addAttribute("gender", personalPage.getGender().getRussianValue());
-//        model.addAttribute("phoneNumber", personalPage.getPhoneNumbers());
+
+        StringBuffer birthday = new StringBuffer();
+
+        StringBuffer date = new StringBuffer();
+        StringBuffer month = new StringBuffer();
+
+        if(personalPage.getDateOfBirth().getDate() < 10){
+            date.append("0").append(personalPage.getDateOfBirth().getDate());
+        } else {
+            date.append(personalPage.getDateOfBirth().getDate());
+        }
+
+        if(personalPage.getDateOfBirth().getMonth() < 10){
+            month.append("0").append(personalPage.getDateOfBirth().getMonth());
+        } else {
+            month.append(personalPage.getDateOfBirth().getMonth());
+        }
+
+        birthday
+                .append(date)
+                .append(". ")
+                .append(month)
+                .append(". ")
+                .append(personalPage.getDateOfBirth().getYear())
+                .append(" г");
+
+        model.addAttribute("birthday", birthday);
+        model.addAttribute("gender", personalPage.getGender());
+        model.addAttribute("phoneNumber", personalPage.getPhoneNumbers());
         model.addAttribute("region", personalPage.getAddress().getRegion());
         model.addAttribute("district", personalPage.getAddress().getDistrict());
         model.addAttribute("locality", personalPage.getAddress().getLocality());
@@ -100,7 +117,7 @@ public class MedicalCardController {
         model.addAttribute("flatNumber", personalPage.getAddress().getFlatNumber());
         model.addAttribute("workPlace", personalPage.getWorkPlace());
         model.addAttribute("position", personalPage.getPosition());
-//        model.addAttribute("dispensaryGroup", personalPage.getDispensaryObservationGroup());
+        model.addAttribute("dispensaryGroup", personalPage.getDispensaryObservationGroup());
 
         if (personalPage.getPrivilegedGroup() == null) {
             model.addAttribute("privileged", "нет");
@@ -151,13 +168,34 @@ public class MedicalCardController {
 
         model.addAttribute("anamnesisPage", new AnamnesisPage());
 
+        List<AnamnesisPage> anamnesisPages;
+
+        if (id == null) {
+            Authentication authentication = authenticationFacade.getAuthentication();
+            anamnesisPages = anamnesisPageService.findByPatientUsername(authentication.getName());
+
+        } else {
+
+            anamnesisPages = anamnesisPageService.findByPatientId(Long.parseLong(id));
+        }
+
+        model.addAttribute("anamnesis", anamnesisPages);
+
         return "medical_card/anamnesis";
     }
 
     @PostMapping(value = {"/anamnesis", "/anamnesis/{id}"})
     public String saveAnamnesis(Model model, @PathVariable(required = false) String id, @ModelAttribute("anamnesisPage") AnamnesisPage anamnesisPage, BindingResult bindingResult) {
 
-        return "medical_card/anamnesis";
+        Authentication authentication = authenticationFacade.getAuthentication();
+
+        anamnesisPage.setMedicalCard(medicalCardService.findByPatientId(Long.parseLong(id)));
+        anamnesisPage.setMedicalWorker(userService.findUserByUsername(authentication.getName()));
+        anamnesisPage.setRecordDate(new Date());
+
+        anamnesisPageService.save(anamnesisPage);
+
+        return anamnesis(model, id);
     }
 
     @GetMapping(value = {"/disability", "/disability/{id}"})
@@ -289,7 +327,6 @@ public class MedicalCardController {
 
         medicalExaminationPage.setMedicalCard(medicalCardService.findByPatientId(Long.parseLong(id)));
         medicalExaminationPage.setTreatmentDoctor(userService.findUserByUsername(authentication.getName()));
-        medicalExaminationPage.setReceivingDoctor(userService.findUserByUsername(authentication.getName()));
         medicalExaminationPage.setRecordDate(new Date());
 
         medicalExaminationPageService.save(medicalExaminationPage);
@@ -354,6 +391,15 @@ public class MedicalCardController {
 
     @PostMapping(value = {"/preventive_examination", "/preventive_examination/{id}"})
     public String savePreventiveExamination(Model model, @PathVariable(required = false) String id, @ModelAttribute("preventiveExaminationPage") PreventiveExaminationPage preventiveExaminationPage, BindingResult bindingResult) {
-        return "/medical_card/preventive_examination";
+
+        Authentication authentication = authenticationFacade.getAuthentication();
+
+        preventiveExaminationPage.setMedicalCard(medicalCardService.findByPatientId(Long.parseLong(id)));
+        preventiveExaminationPage.setMedicalWorker(userService.findUserByUsername(authentication.getName()));
+        preventiveExaminationPage.setRecordDate(new Date());
+
+        preventiveExaminationPageService.save(preventiveExaminationPage);
+
+        return preventiveExamination(model, id);
     }
 }

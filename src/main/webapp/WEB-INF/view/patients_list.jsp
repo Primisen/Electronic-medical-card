@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -8,17 +9,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Список пациентов</title>
+
     <jsp:include page="bootstrap.jsp"/>
 </head>
+
+<%--    <jsp:body>--%>
 <body>
 
 <jsp:include page="/WEB-INF/view/header.jsp"/>
 
 <div class="container col-7 mt-5">
 
-    <form class="mb-5">
-        <input type="search" class="form-control" placeholder="Введите фамилию..." aria-label="Search">
-    </form>
+<%--    <form:form method="get" action="" class="mb-5">--%>
+
+
+<%--        <div class="row">--%>
+<%--            <div class="small-3 columns">--%>
+<%--                <input type="text" id="txt" name="surname">--%>
+<%--            </div>--%>
+
+<%--            <div class="small-5 columns end">--%>
+<%--                <button id="button-id" type="submit">Search Teams</button>--%>
+<%--            </div>--%>
+
+<%--        </div>--%>
+
+<%--        <div class="row">--%>
+<%--            <div>--%>
+<%--                ${searchTerm}--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <input type="search" class="form-control" placeholder="Введите фамилию..." aria-label="Search">--%>
+<%--    </form:form>--%>
+
 
     <table class="table table-hover">
         <tbody>
@@ -44,15 +67,15 @@
                                 </li>
                                 <li><a class="dropdown-item" href="/diagnosis/${patient.id}">Лист для записи
                                     заключительных (уточненных) диагнозов</a></li>
-                                <li><a class="dropdown-item" href="/preventive_examination/${patient.id}">Лист
-                                    профилактических осмотров с данными опроса и осмотра</a></li>
+<%--                                <li><a class="dropdown-item" href="/preventive_examination/${patient.id}">Лист--%>
+<%--                                    профилактических осмотров с данными опроса и осмотра</a></li>--%>
                                 <li><a class="dropdown-item" href="/vaccination/${patient.id}">Карта учета
                                     профилактических прививок</a></li>
 
-<%--                                <c:if test="${patient.medicalCard.personalPage.gender == 'женский'}">--%>
-                                    <li><a class="dropdown-item" href="/gynecological/${patient.id}">Данные о
-                                        профилактических гинекологических осмотрах для женщин</a></li>
-<%--                                </c:if>--%>
+                                    <%--                                <c:if test="${patient.medicalCard.personalPage.gender == 'женский'}">--%>
+                                <li><a class="dropdown-item" href="/gynecological/${patient.id}">Данные о
+                                    гинекологических осмотрах</a></li>
+                                    <%--                                </c:if>--%>
 
                                 <li><a class="dropdown-item" href="/disability/${patient.id}">Лист учета временной
                                     нетрудоспособности</a></li>

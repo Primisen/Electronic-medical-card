@@ -37,10 +37,10 @@
 
                 <li><a href="/personal_page/${user.id}" class="navbar-brand">Личная информация</a></li>
                 <li><a href="/diagnosis/${user.id}" class="navbar-brand">Лист для записи заключительных (уточненных) диагнозов</a></li>
-                <li><a href="/preventive_examination/${user.id}" class="navbar-brand">Лист профилактических осмотров с данными опроса и осмотра</a>
-                </li>
+<%--                <li><a href="/preventive_examination/${user.id}" class="navbar-brand">Лист профилактических осмотров с данными опроса и осмотра</a>--%>
+<%--                </li>--%>
                 <li><a href="/vaccination/${user.id}" class="navbar-brand">Карта учета профилактических прививок</a></li>
-                <li><a href="/gynecological/${user.id}" class="navbar-brand">Данные о профилактических гинекологических осмотрах</a></li>
+                <li><a href="/gynecological/${user.id}" class="navbar-brand">Данные о гинекологических осмотрах</a></li>
                 <li><a href="/disability/${user.id}" class="navbar-brand">Лист учета временной нетрудоспособности</a></li>
                 <li><a href="/xray/${user.id}" class="navbar-brand">Лист учета рентгенологических обследований</a></li>
                 <li><a href="/anamnesis/${user.id}" class="navbar-brand">Данные анамнеза и дополнения к анамнезу</a></li>

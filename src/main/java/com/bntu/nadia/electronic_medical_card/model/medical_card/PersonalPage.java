@@ -1,13 +1,9 @@
 package com.bntu.nadia.electronic_medical_card.model.medical_card;
 
 import com.bntu.nadia.electronic_medical_card.model.medical_card.added.Address;
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.DispensaryObservationGroup;
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.PhoneNumber;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "personal_part")
@@ -34,14 +30,14 @@ public class PersonalPage {
     private String gender;
 
     @Column(name = "date_of_birth")
-    private Calendar dateOfBirth;
+    private Date dateOfBirth;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "personalPage")
-    private List<PhoneNumber> phoneNumbers;
+    @Column(name = "phone")
+    private String phoneNumbers;
 
     @Column(name = "work_place")
     private String workPlace;
@@ -49,8 +45,8 @@ public class PersonalPage {
     @Column(name = "position")
     private String position;
 
-    @OneToMany(mappedBy = "personalPage")
-    private List<DispensaryObservationGroup> dispensaryObservationGroup;
+    @Column(name = "disp_group")
+    private String dispensaryObservationGroup;
 
     @Column(name = "disease")
     private String disease;
@@ -67,8 +63,6 @@ public class PersonalPage {
     @Column(name = "privileged_group")
     private String privilegedGroup;
 
-//    @OneToOne
-//    @JoinColumn(name = "observing_person", referencedColumnName = "id")
     @Column(name = "observing_person")
     private String observingPersonData;
 
@@ -123,11 +117,11 @@ public class PersonalPage {
         this.gender = gender;
     }
 
-    public Calendar getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -139,19 +133,12 @@ public class PersonalPage {
         this.address = address;
     }
 
-    public List<PhoneNumber> getPhoneNumbers() {
+    public String getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+    public void setPhoneNumbers(String phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
-    }
-
-    public void addPhoneNumber(PhoneNumber phoneNumber) {
-        if (phoneNumbers == null) {
-            phoneNumbers = new ArrayList<>();
-        }
-        phoneNumbers.add(phoneNumber);
     }
 
     public String getWorkPlace() {
@@ -170,21 +157,12 @@ public class PersonalPage {
         this.position = position;
     }
 
-    public List<DispensaryObservationGroup> getDispensaryObservationGroup() {
+    public String getDispensaryObservationGroup() {
         return dispensaryObservationGroup;
     }
 
-    public void setDispensaryObservationGroup(List<DispensaryObservationGroup> dispensaryObservationGroup) {
+    public void setDispensaryObservationGroup(String dispensaryObservationGroup) {
         this.dispensaryObservationGroup = dispensaryObservationGroup;
-    }
-
-    public void addDispensaryObservationGroup(DispensaryObservationGroup dispensaryObservationGroup) {
-
-        if (this.dispensaryObservationGroup == null) {
-            this.dispensaryObservationGroup = new ArrayList<>();
-        }
-
-        this.dispensaryObservationGroup.add(dispensaryObservationGroup);
     }
 
     public String getDisease() {

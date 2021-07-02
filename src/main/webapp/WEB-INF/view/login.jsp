@@ -26,8 +26,8 @@
     <% response.sendRedirect("/home"); %>
 </sec:authorize>
 
-<div class="position-relative">
-    <div class="container position-absolute top-50 start-50 translate-middle-x" style="max-width: 400px">
+<div class="container mb-5">
+    <div class=" position-relative start-50 top-50 translate-middle-x" style="max-width: 400px">
 
         <main class="form-signin mt-4 ">
 
