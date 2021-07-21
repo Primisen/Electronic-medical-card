@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(name = "encrypted_password")
     private String password;
 
-//    @Column(name = "user_role_id")
+//    @Transient
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -43,32 +43,18 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    @Transient
+    //    @Transient
     @OneToOne(mappedBy = "patient")
     private MedicalCard medicalCard;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(String name, String surname, String patronymic){
+    public User(String name, String surname, String patronymic) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
     }
-
-//    @Column(name = "passport_series")//and this)
-//    private String passportSeries;
-//
-//    @Column(name = "passport_id")//and
-//    private String passportId;
-//
-//    @Column(name = "individual_number")//and
-//    private String individualNumber;
-//
-//    @Column(name = "authority_that_issued_passport")//and
-//    private String authorityThatIssuedPassport;
-//
-//    @Column(name = "date_of_issue_of_passport")//and this of course)
-//    private Calendar dateOfIssueOfPassport;
 
     public Long getId() {
         return id;
@@ -178,51 +164,32 @@ public class User implements UserDetails {
         this.medicalCard = medicalCard;
     }
 
-//    public boolean isActive() {
-//        return active;
-//    }
-//
-//    public void setActive(boolean active) {
-//        this.active = active;
-//    }
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
 
-    //    public String getPassportSeries() {
-//        return passportSeries;
-//    }
-//
-//    public void setPassportSeries(String passportSeries) {
-//        this.passportSeries = passportSeries;
-//    }
-//
-//    public String getPassportId() {
-//        return passportId;
-//    }
-//
-//    public void setPassportId(String passportId) {
-//        this.passportId = passportId;
-//    }
-//
-//    public String getIndividualNumber() {
-//        return individualNumber;
-//    }
-//
-//    public void setIndividualNumber(String individualNumber) {
-//        this.individualNumber = individualNumber;
-//    }
-//
-//    public String getAuthorityThatIssuedPassport() {
-//        return authorityThatIssuedPassport;
-//    }
-//
-//    public void setAuthorityThatIssuedPassport(String authorityThatIssuedPassport) {
-//        this.authorityThatIssuedPassport = authorityThatIssuedPassport;
-//    }
-//
-//    public Calendar getDateOfIssueOfPassport() {
-//        return dateOfIssueOfPassport;
-//    }
-//
-//    public void setDateOfIssueOfPassport(Calendar dateOfIssueOfPassport) {
-//        this.dateOfIssueOfPassport = dateOfIssueOfPassport;
-//    }
+        User user = (User) object;
+        return id == user.id
+                && name.equals(user.name)
+                && surname.equals(user.surname)
+                && patronymic.equals(user.patronymic)
+                && username.equals(user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 37;
+        result = (int) (result * id
+                + (name == null ? 0 : name.hashCode())
+                + (surname == null ? 0 : surname.hashCode())
+                + (patronymic == null ? 0 : patronymic.hashCode())
+                + (username == null ? 0 : username.hashCode()));
+
+        return result;
+    }
 }

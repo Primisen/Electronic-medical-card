@@ -29,7 +29,6 @@
                     <h5>Перенесенные заболевания, операции</h5>
                 </td>
                 <td>${anamnesisPage.operations}</td>
-
             </tr>
 
             <tr>
@@ -37,7 +36,6 @@
                     <h5>Наследственность</h5>
                 </td>
                 <td>${anamnesisPage.heredity}</td>
-
             </tr>
 
             <tr>
@@ -46,7 +44,6 @@
                 </td>
                 <td>${anamnesisPage.drugAllergy}</td>
             </tr>
-
             <tr>
                 <td>
                     <h5>Факторы риска</h5>
@@ -74,13 +71,6 @@
                 </td>
                 <td>${anamnesisPage.otherInformation}</td>
             </tr>
-
-            <%--        <tr>--%>
-            <%--            <td>--%>
-            <%--                <h5>Дата взятия на "Д" учет</h5>--%>
-            <%--            </td>--%>
-            <%--            <td>${anamnesisPage.dateOfRegistrationOnDispensaryGroup}</td>--%>
-            <%--        </tr>--%>
 
             <tr>
                 <td>
@@ -157,11 +147,6 @@
                     <form:input type="text" path="otherInformation" placeholder="Прочие сведения" id="d"
                                 cssClass="form-control"/>
                 </div>
-                <%--                <div class="mb-3">--%>
-                <%--                    <label for="d" class="form-label">Дата взятия на "Д" учет</label>--%>
-                <%--                    <form:input type="text" path="dateOfRegistrationOnDispensaryGroup"--%>
-                <%--                                placeholder="Дата взятия на Д учет" id="d" cssClass="form-control"/>--%>
-                <%--                </div>--%>
 
                 <div class="mb-3">
                     <button type="submit" class="btn btn-secondary">Добавить</button>

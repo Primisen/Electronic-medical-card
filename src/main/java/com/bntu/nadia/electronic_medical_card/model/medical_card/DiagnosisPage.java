@@ -31,8 +31,6 @@ public class DiagnosisPage {
     @Column(name = "newly_diagnosed")
     private boolean newlyDiagnosed;
 
-    //конструктор, геттеры, сеттеры
-
     public DiagnosisPage() {
     }
 

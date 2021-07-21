@@ -29,42 +29,15 @@ public class PersonalPage {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "birthday")
+    private Date birthday;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @Column(name = "phone")
-    private String phoneNumbers;
-
-    @Column(name = "work_place")
-    private String workPlace;
-
-    @Column(name = "position")
-    private String position;
-
-    @Column(name = "disp_group")
-    private String dispensaryObservationGroup;
-
-    @Column(name = "disease")
-    private String disease;
-
-    @Column(name = "information_about_burdened_allergic_anamnesis")
-    private String burdenedAllergicAnamnesis;
-
-    @Column(name = "information_about_transferred_viral_hepatitis")
-    private String transferredViralHepatitis;
-
-    @Column(name = "elderly_and_senile_people_living_alone")
-    private boolean elderlyAndSenilePeopleLivingAlone;
-
-    @Column(name = "privileged_group")
-    private String privilegedGroup;
-
-    @Column(name = "observing_person")
-    private String observingPersonData;
+    private String phoneNumber;
 
     public PersonalPage() {
     }
@@ -117,12 +90,12 @@ public class PersonalPage {
         this.gender = gender;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Address getAddress() {
@@ -133,83 +106,12 @@ public class PersonalPage {
         this.address = address;
     }
 
-    public String getPhoneNumbers() {
-        return phoneNumbers;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNumbers(String phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getWorkPlace() {
-        return workPlace;
-    }
-
-    public void setWorkPlace(String workPlace) {
-        this.workPlace = workPlace;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getDispensaryObservationGroup() {
-        return dispensaryObservationGroup;
-    }
-
-    public void setDispensaryObservationGroup(String dispensaryObservationGroup) {
-        this.dispensaryObservationGroup = dispensaryObservationGroup;
-    }
-
-    public String getDisease() {
-        return disease;
-    }
-
-    public void setDisease(String disease) {
-        this.disease = disease;
-    }
-
-    public String getBurdenedAllergicAnamnesis() {
-        return burdenedAllergicAnamnesis;
-    }
-
-    public void setBurdenedAllergicAnamnesis(String burdenedAllergicAnamnesis) {
-        this.burdenedAllergicAnamnesis = burdenedAllergicAnamnesis;
-    }
-
-    public String getTransferredViralHepatitis() {
-        return transferredViralHepatitis;
-    }
-
-    public void setTransferredViralHepatitis(String transferredViralHepatitis) {
-        this.transferredViralHepatitis = transferredViralHepatitis;
-    }
-
-    public boolean isElderlyAndSenilePeopleLivingAlone() {
-        return elderlyAndSenilePeopleLivingAlone;
-    }
-
-    public void setElderlyAndSenilePeopleLivingAlone(boolean elderlyAndSenilePeopleLivingAlone) {
-        this.elderlyAndSenilePeopleLivingAlone = elderlyAndSenilePeopleLivingAlone;
-    }
-
-    public String getPrivilegedGroup() {
-        return privilegedGroup;
-    }
-
-    public void setPrivilegedGroup(String privilegedGroup) {
-        this.privilegedGroup = privilegedGroup;
-    }
-
-    public String getObservingPersonData() {
-        return observingPersonData;
-    }
-
-    public void setObservingPersonData(String observingPersonData) {
-        this.observingPersonData = observingPersonData;
-    }
 }

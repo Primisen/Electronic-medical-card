@@ -35,11 +35,6 @@ public class MedicalCard {
     @JoinColumn(name = "personal_part_id", referencedColumnName = "id")
     private PersonalPage personalPage;
 
-    //Другие поля, конструктор, геттеры, сеттеры
-
-    @OneToMany(mappedBy = "medicalCard")
-    private List<PreventiveExaminationPage> preventiveExaminationPage;
-
     @OneToMany(mappedBy = "medicalCard")
     private List<MedicalExaminationPage> medicalExaminationPage;
 
@@ -142,23 +137,6 @@ public class MedicalCard {
 
     public void setPersonalPage(PersonalPage personalPage) {
         this.personalPage = personalPage;
-    }
-
-    public List<PreventiveExaminationPage> getPreventiveExaminationPage() {
-        return preventiveExaminationPage;
-    }
-
-    public void setPreventiveExaminationPage(List<PreventiveExaminationPage> preventiveExaminationPage) {
-        this.preventiveExaminationPage = preventiveExaminationPage;
-    }
-
-    public void addPreventiveExaminationPage(PreventiveExaminationPage preventiveExaminationPage) {
-
-        if (this.preventiveExaminationPage == null) {
-            this.preventiveExaminationPage = new ArrayList<>();
-        }
-
-        this.preventiveExaminationPage.add(preventiveExaminationPage);
     }
 
     public List<MedicalExaminationPage> getRecordingMedicalExaminationPage() {

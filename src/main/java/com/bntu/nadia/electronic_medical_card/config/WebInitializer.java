@@ -31,23 +31,8 @@ public class WebInitializer implements WebApplicationInitializer {
         appServlet.setLoadOnStartup(1);
         appServlet.addMapping("/");
 
-//        AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
-
-//        sc.addListener(new ContextLoaderListener(root));
-
         sc.addFilter("securityFilter", new DelegatingFilterProxy("springSecurityFilterChain"))
                 .addMappingForUrlPatterns(null, false, "/*");
 
     }
-
-//    public void onStartup(ServletContext servletContext) throws ServletException {
-//
-//        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-//        context.register(WebConfig.class, PersistenceContextConfig.class);
-//        context.setServletContext(servletContext);
-//
-//        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
-//        dispatcher.setLoadOnStartup(1);
-//        dispatcher.addMapping("/");
-//    }
 }

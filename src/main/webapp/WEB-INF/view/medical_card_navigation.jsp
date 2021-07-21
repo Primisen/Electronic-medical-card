@@ -14,10 +14,6 @@
 <sec:authorize access="hasAuthority('PATIENT')">
     <sec:authentication var="user" property="principal" />
 
-<%--<sec:authorize access="hasAuthority('MEDICAL')">--%>
-<%--    <sec:authentication var="user" property="principal" />--%>
-<%--</sec:authorize>--%>
-
 <div class="card-footer">
 
     <div class="container">
@@ -37,8 +33,6 @@
 
                 <li><a href="/personal_page/${user.id}" class="navbar-brand">Личная информация</a></li>
                 <li><a href="/diagnosis/${user.id}" class="navbar-brand">Лист для записи заключительных (уточненных) диагнозов</a></li>
-<%--                <li><a href="/preventive_examination/${user.id}" class="navbar-brand">Лист профилактических осмотров с данными опроса и осмотра</a>--%>
-<%--                </li>--%>
                 <li><a href="/vaccination/${user.id}" class="navbar-brand">Карта учета профилактических прививок</a></li>
                 <li><a href="/gynecological/${user.id}" class="navbar-brand">Данные о гинекологических осмотрах</a></li>
                 <li><a href="/disability/${user.id}" class="navbar-brand">Лист учета временной нетрудоспособности</a></li>

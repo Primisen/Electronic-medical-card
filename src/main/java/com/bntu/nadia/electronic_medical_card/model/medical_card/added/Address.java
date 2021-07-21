@@ -32,24 +32,7 @@ public class Address {
     @Column(name = "case_number")
     private String caseNumber;
 
-   public Address() {}
-
-    public Address(String region, String district, String locality, String street, String homeNumber) {
-        this.region = region;
-        this.district = district;
-        this.locality = locality;
-        this.street = street;
-        this.homeNumber = homeNumber;
-    }
-
-    public Address(String region, String district, String locality, String street, String homeNumber, String flatNumber, String caseNumber) {
-        this.region = region;
-        this.district = district;
-        this.locality = locality;
-        this.street = street;
-        this.homeNumber = homeNumber;
-        this.flatNumber = flatNumber;
-        this.caseNumber = caseNumber;
+    public Address() {
     }
 
     public long getId() {

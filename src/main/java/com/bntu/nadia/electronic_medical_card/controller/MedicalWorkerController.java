@@ -1,6 +1,5 @@
 package com.bntu.nadia.electronic_medical_card.controller;
 
-import com.bntu.nadia.electronic_medical_card.model.medical_card.added.Gender;
 import com.bntu.nadia.electronic_medical_card.model.user.User;
 import com.bntu.nadia.electronic_medical_card.service.user.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 
 @Controller
-public class MedicalController {
+public class MedicalWorkerController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping("/medical_helper")
-    public String medicalHelpPage() {
-        return "medical_helper";
-    }
 
     @GetMapping("/patients")
     public String patients(ModelMap model) {
@@ -35,23 +29,9 @@ public class MedicalController {
             }
         });
 
-        model.put("patients", patients);
-        model.addAttribute("womanGender", Gender.WOMAN.getRussianValue());
-
-
+        model.addAttribute("patients", patients);
 
         return "patients_list";
     }
-
-//    @RequestMapping("/patients")
-//    public ModelAndView Search(Mode@RequestParam(value = "searchTerm", required = false) String pSearchTerm, HttpServletRequest request, HttpServletResponse response) {
-//
-////        ModelAndView mav = new ModelAndView("search");
-//
-//        model.addObject("searchTerm", pSearchTerm);
-//        mav.addObject("searchResult", userService.findUserBySurname(pSearchTerm));
-//
-//        return mav;
-//    }
 
 }

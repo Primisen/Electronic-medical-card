@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 
@@ -15,107 +16,68 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
+
 <sec:authorize access="hasAuthority('PATIENT')">
     <jsp:include page="../medical_card_navigation.jsp"/>
 </sec:authorize>
-<td class="container">
 
-    <%--    <div class="container">--%>
-    <%--    <nav aria-label="breadcrumb">--%>
-    <%--        <ol class="breadcrumb">--%>
-    <%--            <li class="breadcrumb-item active" aria-current="page">Личная информация</li>--%>
-    <%--        </ol>--%>
-    <%--    </nav>--%>
+<div class="container col-8">
+    <h4 class="text-center mt-5 mb-5">Медицинская карта амбулаторного больного № ${personalPage.id}</h4>
 
-    <%--    <nav aria-label="breadcrumb">--%>
-    <%--        <ol class="breadcrumb">--%>
-    <%--            <li class="breadcrumb-item"><a href="#">Home</a></li>--%>
-    <%--            <li class="breadcrumb-item active" aria-current="page">Library</li>--%>
-    <%--        </ol>--%>
-    <%--    </nav>--%>
+    <c:set scope="request" value="${personalPage}" var="personalPage"/>
 
-    <%--    <nav aria-label="breadcrumb">--%>
-    <%--        <ol class="breadcrumb">--%>
-    <%--            <li class="breadcrumb-item"><a href="#">Home</a></li>--%>
-    <%--            <li class="breadcrumb-item"><a href="#">Library</a></li>--%>
-    <%--            <li class="breadcrumb-item active" aria-current="page">Data</li>--%>
-    <%--        </ol>--%>
-    <%--    </nav>--%>
+    <table class="table">
+        <tbody>
 
-    <div class="container col-8">
-        <h4 class="text-center mt-5 mb-5">Медицинская карта амбулаторного больного № ${id}</h4>
+        <tr>
+            <td>
+                <h5>ФИО</h5>
+            </td>
+            <td>${personalPage.surname} ${personalPage.name} ${personalPage.patronymic}</td>
+        </tr>
 
-        <table class="table">
-            <tbody>
+        <tr>
+            <td>
+                <h5>Пол</h5>
+            </td>
+            <td>${personalPage.gender}</td>
+        </tr>
 
-            <tr>
-                <td>
-                    <h5>ФИО</h5>
-                </td>
-                <td>${surname} ${name} ${patronymic}</td>
+        <tr>
+            <td>
+                <h5>Дата рождения</h5>
+            </td>
+            <td>
+                <fmt:formatDate value="${personalPage.birthday}" pattern="dd.MM.YYYY"/>
+            </td>
+        </tr>
 
-            </tr>
+        <tr>
+            <td>
+                <h5>Телефон</h5>
+            </td>
+            <td>${personalPage.phoneNumber}</td>
+        </tr>
 
-            <tr>
-                <td>
-                    <h5>Пол</h5>
-                </td>
-                <td>${gender}</td>
+        <tr>
+            <td>
+                <h5>Адрес</h5>
+            </td>
+            <td>${personalPage.address.region} область,
+                ${personalPage.address.district} район,
+                ${personalPage.address.locality},
+                улица ${personalPage.address.street},
+                дом № ${personalPage.address.homeNumber},
+                корпус ${personalPage.address.caseNumber},
+                квартира ${personalPage.address.flatNumber}
+            </td>
+        </tr>
 
+        </tbody>
+    </table>
 
-            </tr>
+</div>
 
-            <tr>
-                <td>
-                    <h5>Дата рождения</h5>
-                </td>
-                <td>${birthday}</td>
-
-            </tr>
-
-            <tr>
-                <td>
-                    <h5>Телефон</h5>
-                </td>
-                <%--                <td>${phoneNumber}</td>--%>
-                <td>+375 29 9863524</td>
-
-            </tr>
-
-            <tr>
-                <td>
-                    <h5>Адрес</h5>
-                </td>
-                <td>${region} область, ${district}
-                    район, ${locality},улица ${street}, дом № ${homeNumber}, корпус ${caseNumber},
-                    квартира ${flatNumber}
-                </td>
-            </tr>
-
-<%--            <tr>--%>
-<%--                <td>--%>
-<%--                    <h5>Диспансерная группа</h5>--%>
-<%--                </td>--%>
-<%--                <td>${dispensaryGroup}</td>--%>
-<%--                &lt;%&ndash;                <td>III</td>&ndash;%&gt;--%>
-
-<%--            </tr>--%>
-
-            <%--            <tr>--%>
-            <%--                <td>--%>
-            <%--                    <h5>Льготы</h5>--%>
-            <%--                </td>--%>
-            <%--&lt;%&ndash;                <td>${privileged}</td>&ndash;%&gt;--%>
-            <%--                <td>нет</td>--%>
-
-            <%--            </tr>--%>
-
-            </tbody>
-        </table>
-
-
-    </div>
-
-    <jsp:include page="../footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>

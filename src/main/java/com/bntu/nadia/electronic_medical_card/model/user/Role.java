@@ -5,10 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-@Table(name = "user_role")
+@Table(name = "role")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -19,7 +18,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "role_name")
     private String name;
 
-    @Transient //it's mean that in database not this column
+    @Transient //it's mean that database has not this column
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
@@ -83,6 +82,8 @@ public class Role implements GrantedAuthority {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        int result = 37;
+        result = (int) (result * id + (name == null ? 0 : name.hashCode()));
+        return result;
     }
 }

@@ -37,9 +37,6 @@ public class MedicalCardController {
     private GynecologicalPageService gynecologicalPageService;
 
     @Autowired
-    private PreventiveExaminationPageService preventiveExaminationPageService;
-
-    @Autowired
     private MedicalExaminationPageService medicalExaminationPageService;
 
     @Autowired
@@ -57,100 +54,28 @@ public class MedicalCardController {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
-    @GetMapping(value = {"/personal_page", "/personal_page/{id}"})
-    public String personalPage(ModelMap model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/personal_page/{id}"})
+    public String personalPage(ModelMap model, @PathVariable String id) {
 
-        PersonalPage personalPage;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            personalPage = personalPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            personalPage = personalPageService.findByPatientId(Long.parseLong(id));
-        }
-
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(personalPage.getId());
-        model.addAttribute("personalPage", personalPage);//для постзапроса
-        model.addAttribute("personalPageId", personalPage.getId());
-
-        model.addAttribute("id", personalPage.getId());
-        model.addAttribute("name", personalPage.getName());
-        model.addAttribute("surname", personalPage.getSurname());
-        model.addAttribute("patronymic", personalPage.getPatronymic());
-
-        StringBuffer birthday = new StringBuffer();
-
-        StringBuffer date = new StringBuffer();
-        StringBuffer month = new StringBuffer();
-
-        if(personalPage.getDateOfBirth().getDate() < 10){
-            date.append("0").append(personalPage.getDateOfBirth().getDate());
-        } else {
-            date.append(personalPage.getDateOfBirth().getDate());
-        }
-
-        if(personalPage.getDateOfBirth().getMonth() < 10){
-            month.append("0").append(personalPage.getDateOfBirth().getMonth());
-        } else {
-            month.append(personalPage.getDateOfBirth().getMonth());
-        }
-
-        birthday
-                .append(date)
-                .append(". ")
-                .append(month)
-                .append(". ")
-                .append(personalPage.getDateOfBirth().getYear())
-                .append(" г");
-
-        model.addAttribute("birthday", birthday);
-        model.addAttribute("gender", personalPage.getGender());
-        model.addAttribute("phoneNumber", personalPage.getPhoneNumbers());
-        model.addAttribute("region", personalPage.getAddress().getRegion());
-        model.addAttribute("district", personalPage.getAddress().getDistrict());
-        model.addAttribute("locality", personalPage.getAddress().getLocality());
-        model.addAttribute("street", personalPage.getAddress().getStreet());
-        model.addAttribute("homeNumber", personalPage.getAddress().getHomeNumber());
-        model.addAttribute("caseNumber", personalPage.getAddress().getCaseNumber());
-        model.addAttribute("flatNumber", personalPage.getAddress().getFlatNumber());
-        model.addAttribute("workPlace", personalPage.getWorkPlace());
-        model.addAttribute("position", personalPage.getPosition());
-        model.addAttribute("dispensaryGroup", personalPage.getDispensaryObservationGroup());
-
-        if (personalPage.getPrivilegedGroup() == null) {
-            model.addAttribute("privileged", "нет");
-        } else {
-            model.addAttribute("privileged", personalPage.getPrivilegedGroup());
-        }
+        PersonalPage personalPage = personalPageService.findByPatientId(Long.parseLong(id));
+        model.addAttribute("personalPage", personalPage);//для отображения на странице данных полученных из бд
 
         return "/medical_card/personal_page";
     }
 
-    @GetMapping(value = {"/diagnosis", "/diagnosis/{id}"})
-    public String diagnosis(ModelMap model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/diagnosis/{id}"})
+    public String diagnosis(ModelMap model, @PathVariable String id) {
 
         model.addAttribute("diagnosisPage", new DiagnosisPage());//для постзапроса
 
-        List<DiagnosisPage> diagnosisPage;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            diagnosisPage = diagnosisPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-
-            diagnosisPage = diagnosisPageService.findByPatientId(Long.parseLong(id));
-        }
-
-        model.addAttribute("diagnoses", diagnosisPage);
+        List<DiagnosisPage> diagnosisPage = diagnosisPageService.findByPatientId(Long.parseLong(id));
+        model.addAttribute("diagnoses", diagnosisPage);//для отображения на странице данных полученных из бд
 
         return "/medical_card/diagnosis";
     }
 
-    @PostMapping(value = {"/diagnosis", "/diagnosis/{id}"})
-    public String saveDiagnosis(ModelMap model, @PathVariable(required = false) String id, @ModelAttribute("diagnosisPage") DiagnosisPage diagnosisPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/diagnosis/{id}"})
+    public String saveDiagnosis(ModelMap model, @PathVariable String id, @ModelAttribute("diagnosisPage") DiagnosisPage diagnosisPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -163,29 +88,19 @@ public class MedicalCardController {
         return diagnosis(model, id);
     }
 
-    @GetMapping(value = {"/anamnesis", "/anamnesis/{id}"})
-    public String anamnesis(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/anamnesis/{id}"})
+    public String anamnesis(Model model, @PathVariable String id) {
 
         model.addAttribute("anamnesisPage", new AnamnesisPage());
 
-        List<AnamnesisPage> anamnesisPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            anamnesisPages = anamnesisPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-
-            anamnesisPages = anamnesisPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<AnamnesisPage> anamnesisPages = anamnesisPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("anamnesis", anamnesisPages);
 
         return "medical_card/anamnesis";
     }
 
-    @PostMapping(value = {"/anamnesis", "/anamnesis/{id}"})
-    public String saveAnamnesis(Model model, @PathVariable(required = false) String id, @ModelAttribute("anamnesisPage") AnamnesisPage anamnesisPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/anamnesis/{id}"})
+    public String saveAnamnesis(Model model, @PathVariable String id, @ModelAttribute("anamnesisPage") AnamnesisPage anamnesisPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -198,28 +113,19 @@ public class MedicalCardController {
         return anamnesis(model, id);
     }
 
-    @GetMapping(value = {"/disability", "/disability/{id}"})
-    public String disability(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/disability/{id}"})
+    public String disability(Model model, @PathVariable String id) {
 
-        model.addAttribute("disabilityPage", new TemporaryDisabilityPage());//
+        model.addAttribute("disabilityPage", new TemporaryDisabilityPage());
 
-        List<TemporaryDisabilityPage> temporaryDisabilityPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            temporaryDisabilityPages = temporaryDisabilityPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            temporaryDisabilityPages = temporaryDisabilityPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<TemporaryDisabilityPage> temporaryDisabilityPages = temporaryDisabilityPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("disability", temporaryDisabilityPages);
 
         return "medical_card/disability";
     }
 
-    @PostMapping(value = {"/disability", "/disability/{id}"})
-    public String saveDisability(Model model, @PathVariable(required = false) String id, @ModelAttribute("disabilityPage") TemporaryDisabilityPage temporaryDisabilityPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/disability/{id}"})
+    public String saveDisability(Model model, @PathVariable String id, @ModelAttribute("disabilityPage") TemporaryDisabilityPage temporaryDisabilityPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -232,28 +138,19 @@ public class MedicalCardController {
         return disability(model, id);
     }
 
-    @GetMapping(value = {"/gynecological", "/gynecological/{id}"})
-    public String gynecological(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/gynecological/{id}"})
+    public String gynecological(Model model, @PathVariable String id) {
 
         model.addAttribute("gynecologicalPage", new GynecologicalPage());
 
-        List<GynecologicalPage> gynecologicalPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            gynecologicalPages = gynecologicalPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            gynecologicalPages = gynecologicalPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<GynecologicalPage> gynecologicalPages = gynecologicalPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("gynecological", gynecologicalPages);
 
         return "medical_card/gynecological";
     }
 
     @PostMapping(value = {"/gynecological", "/gynecological/{id}"})
-    public String saveGynecological(Model model, @PathVariable(required = false) String id, @ModelAttribute("gynecologicalPage") GynecologicalPage gynecologicalPage, BindingResult bindingResult) {
+    public String saveGynecological(Model model, @PathVariable String id, @ModelAttribute("gynecologicalPage") GynecologicalPage gynecologicalPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -266,28 +163,19 @@ public class MedicalCardController {
         return gynecological(model, id);
     }
 
-    @GetMapping(value = {"/xray", "/xray/{id}"})
-    public String xray(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/xray/{id}"})
+    public String xray(Model model, @PathVariable String id) {
 
-        model.addAttribute("xrayPage", new XRayPage());//
+        model.addAttribute("xrayPage", new XRayPage());
 
-        List<XRayPage> xRayPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            xRayPages = xRayPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            xRayPages = xRayPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<XRayPage> xRayPages = xRayPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("xray", xRayPages);
 
         return "medical_card/xray";
     }
 
-    @PostMapping(value = {"/xray", "/xray/{id}"})
-    public String saveXray(Model model, @PathVariable(required = false) String id, @ModelAttribute("xrayPage") XRayPage xRayPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/xray/{id}"})
+    public String saveXray(Model model, @PathVariable String id, @ModelAttribute("xrayPage") XRayPage xRayPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -300,28 +188,19 @@ public class MedicalCardController {
         return xray(model, id);
     }
 
-    @GetMapping(value = {"/medical_examination", "/medical_examination/{id}"})
-    public String medicalExamination(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/medical_examination/{id}"})
+    public String medicalExamination(Model model, @PathVariable String id) {
 
-        model.addAttribute("medicalExaminationPage", new MedicalExaminationPage());//
+        model.addAttribute("medicalExaminationPage", new MedicalExaminationPage());
 
-        List<MedicalExaminationPage> medicalExaminationPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            medicalExaminationPages = medicalExaminationPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            medicalExaminationPages = medicalExaminationPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<MedicalExaminationPage> medicalExaminationPages = medicalExaminationPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("medicalExamination", medicalExaminationPages);
 
         return "/medical_card/medical_examination";
     }
 
-    @PostMapping(value = {"/medical_examination", "/medical_examination/{id}"})
-    public String saveMedicalExamination(Model model, @PathVariable(required = false) String id, @ModelAttribute("medicalExaminationPage") MedicalExaminationPage medicalExaminationPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/medical_examination/{id}"})
+    public String saveMedicalExamination(Model model, @PathVariable String id, @ModelAttribute("medicalExaminationPage") MedicalExaminationPage medicalExaminationPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -334,28 +213,19 @@ public class MedicalCardController {
         return medicalExamination(model, id);
     }
 
-    @GetMapping(value = {"/vaccination", "/vaccination/{id}"})
-    public String vaccination(Model model, @PathVariable(required = false) String id) {
+    @GetMapping(value = {"/vaccination/{id}"})
+    public String vaccination(Model model, @PathVariable String id) {
 
-        model.addAttribute("vaccinationPage", new VaccinationPage());//
+        model.addAttribute("vaccinationPage", new VaccinationPage());
 
-        List<VaccinationPage> vaccinationPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            vaccinationPages = vaccinationPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-            vaccinationPages = vaccinationPageService.findByPatientId(Long.parseLong(id));
-        }
-
+        List<VaccinationPage> vaccinationPages = vaccinationPageService.findByPatientId(Long.parseLong(id));
         model.addAttribute("vaccination", vaccinationPages);
 
         return "/medical_card/vaccination";
     }
 
-    @PostMapping(value = {"/vaccination", "/vaccination/{id}"})
-    public String saveVaccination(Model model, @PathVariable(required = false) String id, @ModelAttribute("vaccinationPage") VaccinationPage vaccinationPage, BindingResult bindingResult) {
+    @PostMapping(value = {"/vaccination/{id}"})
+    public String saveVaccination(Model model, @PathVariable String id, @ModelAttribute("vaccinationPage") VaccinationPage vaccinationPage, BindingResult bindingResult) {
 
         Authentication authentication = authenticationFacade.getAuthentication();
 
@@ -368,38 +238,4 @@ public class MedicalCardController {
         return vaccination(model, id);
     }
 
-    @GetMapping(value = {"/preventive_examination", "/preventive_examination/{id}"})
-    public String preventiveExamination(Model model, @PathVariable(required = false) String id) {
-
-        model.addAttribute("preventiveExaminationPage", new PreventiveExaminationPage());//для постзапроса
-
-        List<PreventiveExaminationPage> preventiveExaminationPages;
-
-        if (id == null) {
-            Authentication authentication = authenticationFacade.getAuthentication();
-            preventiveExaminationPages = preventiveExaminationPageService.findByPatientUsername(authentication.getName());
-
-        } else {
-
-            preventiveExaminationPages = preventiveExaminationPageService.findByPatientId(Long.parseLong(id));
-        }
-
-        model.addAttribute("preventiveExaminationPages", preventiveExaminationPages);
-
-        return "/medical_card/preventive_examination";
-    }
-
-    @PostMapping(value = {"/preventive_examination", "/preventive_examination/{id}"})
-    public String savePreventiveExamination(Model model, @PathVariable(required = false) String id, @ModelAttribute("preventiveExaminationPage") PreventiveExaminationPage preventiveExaminationPage, BindingResult bindingResult) {
-
-        Authentication authentication = authenticationFacade.getAuthentication();
-
-        preventiveExaminationPage.setMedicalCard(medicalCardService.findByPatientId(Long.parseLong(id)));
-        preventiveExaminationPage.setMedicalWorker(userService.findUserByUsername(authentication.getName()));
-        preventiveExaminationPage.setRecordDate(new Date());
-
-        preventiveExaminationPageService.save(preventiveExaminationPage);
-
-        return preventiveExamination(model, id);
-    }
 }

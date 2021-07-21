@@ -13,35 +13,11 @@
     <jsp:include page="bootstrap.jsp"/>
 </head>
 
-<%--    <jsp:body>--%>
 <body>
 
 <jsp:include page="/WEB-INF/view/header.jsp"/>
 
 <div class="container col-7 mt-5">
-
-<%--    <form:form method="get" action="" class="mb-5">--%>
-
-
-<%--        <div class="row">--%>
-<%--            <div class="small-3 columns">--%>
-<%--                <input type="text" id="txt" name="surname">--%>
-<%--            </div>--%>
-
-<%--            <div class="small-5 columns end">--%>
-<%--                <button id="button-id" type="submit">Search Teams</button>--%>
-<%--            </div>--%>
-
-<%--        </div>--%>
-
-<%--        <div class="row">--%>
-<%--            <div>--%>
-<%--                ${searchTerm}--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <input type="search" class="form-control" placeholder="Введите фамилию..." aria-label="Search">--%>
-<%--    </form:form>--%>
-
 
     <table class="table table-hover">
         <tbody>
@@ -49,8 +25,7 @@
 
             <tr>
                 <td>
-                    <p>${patient.surname} ${patient.name} ${patient.patronymic} ${patient.medicalCard.personalPage.gender}
-                    </p>
+                    <p>${patient.surname} ${patient.name} ${patient.patronymic}</p>
                 </td>
 
                 <td>
@@ -67,15 +42,14 @@
                                 </li>
                                 <li><a class="dropdown-item" href="/diagnosis/${patient.id}">Лист для записи
                                     заключительных (уточненных) диагнозов</a></li>
-<%--                                <li><a class="dropdown-item" href="/preventive_examination/${patient.id}">Лист--%>
-<%--                                    профилактических осмотров с данными опроса и осмотра</a></li>--%>
+
                                 <li><a class="dropdown-item" href="/vaccination/${patient.id}">Карта учета
                                     профилактических прививок</a></li>
 
-                                    <%--                                <c:if test="${patient.medicalCard.personalPage.gender == 'женский'}">--%>
+                                <c:if test="${patient.medicalCard.personalPage.gender.equals('женский')}">
                                 <li><a class="dropdown-item" href="/gynecological/${patient.id}">Данные о
                                     гинекологических осмотрах</a></li>
-                                    <%--                                </c:if>--%>
+                                </c:if>
 
                                 <li><a class="dropdown-item" href="/disability/${patient.id}">Лист учета временной
                                     нетрудоспособности</a></li>
@@ -98,6 +72,6 @@
 
 
 </div>
-<jsp:include page="footer.jsp"/>
+<%--<jsp:include page="footer.jsp"/>--%>
 </body>
 </html>

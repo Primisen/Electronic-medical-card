@@ -19,7 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("../../index");
         registry.addViewController("/login").setViewName("login");
-//        registry.addViewController("/helper").setViewName("helper");
     }
 
     @Bean
@@ -33,25 +32,4 @@ public class WebConfig implements WebMvcConfigurer {
         return bean;
     }
 
-//    @Bean
-//    public ViewResolver getViewResolver(){
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setOrder(1);
-//        resolver.setSuffix(".jsp");
-//        resolver.setPrefix("/WEB-INF/view/");
-//        return resolver;
-//    }
-//
-//    @Override
-//    public void addResourceHandlers(final ResourceHandlerRegistry registry){
-////        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-//        registry.addResourceHandler("/WEB-INF/view/").addResourceLocations("/WEB-INF/view/");
-//    }
-
-//    @Override
-//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//
-//        converters.add(new MappingJackson2HttpMessageConverter());
-//        super.configureMessageConverters(converters);
-//    }
 }

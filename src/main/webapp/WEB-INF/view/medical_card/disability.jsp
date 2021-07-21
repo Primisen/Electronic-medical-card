@@ -44,10 +44,7 @@
                     <label for="d" class="form-label">Диагноз</label>
                     <form:input cssClass="form-control" type="text" path="diagnosis" id="d" placeholder="Диагноз"/>
                 </div>
-<%--                <div class="mb-3">--%>
-<%--                    <label for="e" class="form-label">Дата закрытия</label>--%>
-<%--                    <form:input cssClass="form-control" type="text" path="endDate" id="e" placeholder="Дата закрытия"/>--%>
-<%--                </div>--%>
+
                 <div class="mb-3">
                     <label for="n" class="form-label">Количество дней</label>
                     <form:input cssClass="form-control" type="text" path="numberOfDays" id="n" placeholder="Количество дней"/>
@@ -76,9 +73,7 @@
             <th>
                 <h5>Врач</h5>
             </th>
-<%--            <th>--%>
-<%--                <h5>Дата закрытия</h5>--%>
-<%--            </th>--%>
+
         </tr>
         </thead>
 
@@ -92,9 +87,7 @@
                 <td>
                     <p>${disability.diagnosis}</p>
                 </td>
-<%--                <td>--%>
-<%--                    <p>${disability.endDate}</p>--%>
-<%--                </td>--%>
+
                 <td>
                     <p>${disability.numberOfDays}</p>
                 </td>

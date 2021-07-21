@@ -109,43 +109,6 @@
         </tbody>
     </table>
 
-
-    <%--    <sec:authorize access="hasAuthority('MEDICAL')">--%>
-
-    <%--        <div class="p-3  mb-5 mt-5 bg-light border border-4">--%>
-
-    <%--            <nav class="navbar sticky-top navbar-light bg-light">--%>
-    <%--                <div class="container-fluid">--%>
-    <%--                    <a class="navbar-brand" href="#">Добавление диагноза</a>--%>
-    <%--                </div>--%>
-    <%--            </nav>--%>
-
-    <%--            <form:form method="post" modelAttribute="diagnosisPage">--%>
-
-    <%--                <div class="mb-3">--%>
-    <%--                    <label for="d" class="form-label">Диагноз</label>--%>
-    <%--                    <form:input type="text" path="diagnosisName" placeholder="Диагноз" id="d" cssClass="form-control"/>--%>
-    <%--                </div>--%>
-
-    <%--                <div class="mb-3">--%>
-    <%--                    <label for="n" class="form-label">Впервые установленный диагноз</label>--%>
-    <%--                    <form:select path="newlyDiagnosed" class="form-select" id="n" aria-label="Default select example">--%>
-    <%--                        <form:option value="true">Да</form:option>--%>
-    <%--                        <form:option value="false">Нет</form:option>--%>
-    <%--                    </form:select>--%>
-    <%--                </div>--%>
-
-    <%--                <div class="mb-3">--%>
-    <%--                    <button type="submit" class="btn btn-secondary">Добавить</button>--%>
-    <%--                </div>--%>
-
-
-    <%--            </form:form>--%>
-    <%--        </div>--%>
-
-
-    <%--    </sec:authorize>--%>
-
 </div>
 
 <jsp:include page="../footer.jsp"/>

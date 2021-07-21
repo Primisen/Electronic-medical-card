@@ -10,17 +10,17 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-//@EnableTransactionManagement мне кажется, что здесь это не нужно
+@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {"com.bntu.nadia.electronic_medical_card.repositories"})
 //it's mean no More DAO implementations
 //@PropertySource("classpath:persistence.properties")
-//public class PersistenceContextConfig {
-public class ContextConfig {
+public class PersistenceContextConfig {
 
 //    @Value(value = "${db.driver}")
 //    private String driver;
@@ -30,7 +30,7 @@ public class ContextConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.bntu.nadia.electronic_medical_card.model"});
+        em.setPackagesToScan("com.bntu.nadia.electronic_medical_card.model");
 
 //        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(jpaVendorAdapter());

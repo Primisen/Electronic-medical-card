@@ -8,9 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <footer  class="  py-3 bg-light">
-    <div class="container ">
+    <div class="container position button">
         <span class="text-muted" >Электронная медицинская карта, 2021.</span>
-<%--        <a href="/support">Служба поддержки</a>--%>
     </div>
 </footer>
 

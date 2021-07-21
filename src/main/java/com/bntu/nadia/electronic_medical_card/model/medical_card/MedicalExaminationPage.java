@@ -50,12 +50,6 @@ public class MedicalExaminationPage {
     @Column(name = "heart_rate")
     private String heartRate;
 
-    @Column(name = "bh")
-    private String bh;
-
-    @Column(name = "ad")
-    private String ad;
-
     public MedicalExaminationPage() {}
 
     public long getId() {
@@ -154,19 +148,4 @@ public class MedicalExaminationPage {
         this.heartRate = heartRate;
     }
 
-    public String getBh() {
-        return bh;
-    }
-
-    public void setBh(String bh) {
-        this.bh = bh;
-    }
-
-    public String getAd() {
-        return ad;
-    }
-
-    public void setAd(String ad) {
-        this.ad = ad;
-    }
 }

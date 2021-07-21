@@ -100,7 +100,7 @@
                 <div class="card-body">
 
                     <label class="form-label">Номер телефона</label>
-                    <form:input type="text" class="form-control" path="personalPage.phoneNumbers"
+                    <form:input type="text" class="form-control" path="personalPage.phoneNumber"
                                 placeholder="Номер телефона"/>
 
                 </div>
@@ -111,13 +111,13 @@
                 <div class="card-body">
 
                     <label class="form-label">День</label>
-                    <form:input type="number" path="personalPage.dateOfBirth.date" class="form-control" name="day" value="1"/>
+                    <form:input type="number" path="personalPage.birthday.date" class="form-control" name="day" value="1"/>
 
                     <label class="form-label">Месяц (число)</label>
-                    <form:input type="number" path="personalPage.dateOfBirth.month" class="form-control" name="month" value="1"/>
+                    <form:input type="number" path="personalPage.birthday.month" class="form-control" name="month" value="1"/>
 
                     <label class="form-label">Год</label>
-                    <form:input type="number" path="personalPage.dateOfBirth.year" class="form-control" name="year" value="2000"/>
+                    <form:input type="number" path="personalPage.birthday.year" class="form-control" name="year" value="2000"/>
 
                 </div>
             </div>
@@ -155,9 +155,6 @@
             <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
 
         </form:form>
-
-
-<%--        todo:  отметить, что все поля обязательные--%>
 
     </div>
 </div>
