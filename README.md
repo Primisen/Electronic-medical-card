@@ -15,7 +15,6 @@ I used the below thechnologies in this project:
 
 Some pictures of UI:
 
-Home page:  
 ![alt-текст](https://github.com/Primisen/Electronic-medical-card/blob/master/presentation/1.jpg "Home page")
  
 ![alt-текст](https://github.com/Primisen/Electronic-medical-card/blob/master/presentation/2.jpg "Login page")
