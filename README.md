@@ -1,5 +1,4 @@
-# Electronic-medical-card
-My diploma project in Belarusian National Technical University.
+# Electronic medical card
 
 Application has two user roles: medic and patient. 
 
