@@ -15,7 +15,7 @@ I used the below thechnologies in this project:
 
 Some pictures of UI:
 
-List of electronic medical cards which can use doctor and menu of electronic medical card:
+List of electronic medical cards:
 ![alt-текст](https://github.com/Primisen/Electronic-medical-card/blob/master/presentation/4.jpg "")
 
 Patient page:
