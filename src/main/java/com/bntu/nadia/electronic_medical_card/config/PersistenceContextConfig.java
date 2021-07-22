@@ -22,9 +22,6 @@ import java.util.Properties;
 //@PropertySource("classpath:persistence.properties")
 public class PersistenceContextConfig {
 
-//    @Value(value = "${db.driver}")
-//    private String driver;
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
