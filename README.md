@@ -1,5 +1,7 @@
 # Electronic medical card
 
+I think not need comments for what this application:)
+
 Application has two user roles: doctor and patient. 
 
 I used the below thechnologies in this project:
